@@ -69,6 +69,16 @@ footer{background:var(--cw-white);border-top:1px solid var(--cw-border);padding:
 footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:.7rem;color:var(--cw-grey)}
 footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:none}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:100}
+#gate{position:fixed;inset:0;background:linear-gradient(120deg,var(--cw-black) 0%,#3a3733 100%);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+.gatecard{background:var(--cw-white);border-radius:14px;border-top:6px solid var(--cw-red);padding:34px 30px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.gatecard img{height:38px;width:auto;margin-bottom:16px}
+.gatecard h2{font-size:1.15rem;font-weight:700;margin-bottom:6px}
+.gatecard p{font-size:.75rem;color:var(--cw-grey);margin-bottom:18px}
+.gatecard input{width:100%;padding:13px 14px;border:2px solid var(--cw-border);border-radius:8px;font-family:inherit;font-size:1rem;text-align:center;margin-bottom:12px}
+.gatecard input:focus{outline:none;border-color:var(--cw-red)}
+.gatecard button{width:100%;background:var(--cw-red);color:#fff;border:0;border-radius:8px;font-family:inherit;font-weight:700;font-size:1rem;padding:13px;cursor:pointer}
+.gatecard button:hover{background:#b31f27}
+.gatecard .gerr{color:var(--cw-red);font-size:.72rem;font-weight:700;margin-top:10px;min-height:1em}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--cw-black);color:#fff;padding:13px 20px;border-radius:10px;font-size:.85rem;display:flex;gap:16px;align-items:center;z-index:110;box-shadow:0 6px 24px rgba(0,0,0,.3)}
 .toast button{background:var(--cw-gold);border:0;border-radius:6px;font-family:inherit;font-weight:700;font-size:.8rem;padding:7px 14px;cursor:pointer;color:var(--cw-black)}
 .offline{background:var(--cw-red);color:#fff;text-align:center;font-size:.75rem;font-weight:700;padding:8px;display:none}
@@ -124,6 +134,17 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 </footer>
 
 <canvas id="confetti"></canvas>
+
+<div id="gate">
+  <div class="gatecard">
+    <img src="https://emailer.emfluence.com/clients/citywide/uploadedfiles/signature_logo.png" alt="City Wide Facility Solutions">
+    <h2>Sales Hub</h2>
+    <p>Enter the team passcode to continue. Ask TJ if you do not have it.</p>
+    <input type="password" id="gpass" autocomplete="off" placeholder="Team passcode">
+    <button id="gbtn">Enter</button>
+    <div class="gerr" id="gerr"></div>
+  </div>
+</div>
 
 <script>
 "use strict";
@@ -312,9 +333,66 @@ function celebrate(type){
   }
 }
 
-load(true);
-setInterval(load,60000);
-setInterval(function(){todayInfo();},300000);
+/* ---- Team passcode gate (validated server-side, cached per device) ---- */
+var AUTH_KEY="cw_sales_auth";
+var appStarted=false;
+function startApp(){
+  if(appStarted)return;
+  appStarted=true;
+  load(true);
+  setInterval(load,60000);
+  setInterval(function(){todayInfo();},300000);
+}
+function validatePass(pass){
+  return fetch(EXEC,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify({kind:"auth",passcode:pass})})
+    .then(function(r){return r.json();})
+    .then(function(j){
+      if(!j)return false;
+      if(j.ok===false||j.error)return false;
+      return !!(j.ok===true||j.sections||j.links||j.cards);
+    })
+    .catch(function(){return null;}); // null = could not reach server
+}
+function initGate(){
+  var gate=document.getElementById("gate"),inp=document.getElementById("gpass"),
+      btn=document.getElementById("gbtn"),err=document.getElementById("gerr");
+  function submit(){
+    var v=inp.value.trim();
+    if(!v)return;
+    btn.disabled=true;err.textContent="Checking...";
+    validatePass(v).then(function(ok){
+      btn.disabled=false;
+      if(ok===true){
+        try{localStorage.setItem(AUTH_KEY,v);}catch(e){}
+        gate.style.display="none";
+        startApp();
+      }else if(ok===null){
+        err.textContent="Cannot reach the server. Check the connection and try again.";
+      }else{
+        err.textContent="That passcode is not right. Ask TJ if you need it.";
+        inp.value="";inp.focus();
+      }
+    });
+  }
+  btn.onclick=submit;
+  inp.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+  var saved=null;
+  try{saved=localStorage.getItem(AUTH_KEY);}catch(e){}
+  if(saved){
+    startApp(); // show immediately for the TV; revalidate in the background
+    validatePass(saved).then(function(ok){
+      if(ok===false){
+        try{localStorage.removeItem(AUTH_KEY);}catch(e){}
+        location.reload();
+      }
+    });
+  }else{
+    gate.style.display="flex";
+    inp.focus();
+  }
+}
+initGate();
 </script>
 </body>
 </html>
