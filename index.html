@@ -5,11 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sales Hub | City Wide Nevada</title>
 <meta name="description" content="City Wide Facility Solutions Nevada Sales Hub. Call block scoreboard for appointments set and sales closed.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23E5B423'/><text x='50' y='68' font-size='52' font-family='Verdana' font-weight='bold' fill='%232D2A26' text-anchor='middle'>CW</text></svg>">
+<link rel="icon" href="https://citywidelv.github.io/cw-ops-desk/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="https://citywidelv.github.io/cw-ops-desk/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://citywidelv.github.io/cw-ops-desk/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://citywidelv.github.io/cw-ops-desk/apple-touch-icon.png">
 <style>
 :root{
-  --cw-red:#D22730; --cw-black:#2D2A26; --cw-grey:#636466; --cw-white:#FFFFFF;
-  --cw-teal:#0AA6A9; --cw-gold:#E5B423; --cw-light:#F5F5F5; --cw-border:#E5E5E5;
+--cw-red:#D22730; --cw-black:#2D2A26; --cw-grey:#636466; --cw-white:#FFFFFF;
+--cw-teal:#0AA6A9; --cw-gold:#E5B423; --cw-light:#F5F5F5; --cw-border:#E5E5E5;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Verdana,'Liberation Sans','DejaVu Sans',Geneva,Tahoma,sans-serif;color:var(--cw-black);background:var(--cw-light);line-height:1.5}
@@ -19,7 +22,14 @@ header{position:sticky;top:0;background:var(--cw-white);border-bottom:1px solid 
 .bar .left{display:flex;align-items:center;gap:14px}
 .bar img{height:38px;width:auto;display:block}
 .bar .hubname{font-size:.78rem;color:var(--cw-grey);border-left:3px solid var(--cw-gold);padding-left:10px;text-transform:uppercase;letter-spacing:.08em}
-.bar a.home{font-size:.72rem;color:var(--cw-grey);text-decoration:none;font-weight:700;font-style:italic}
+.bar a.home{font-size:.72rem;color:var(--cw-grey);text-decoration:none;font-weight:700;
+border:1px solid var(--cw-border);border-radius:14px;padding:6px 14px;background:var(--cw-light);white-space:nowrap}
+.bar a.home:hover{background:var(--cw-red);color:#fff;border-color:var(--cw-red)}
+.toolrow{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.tool{display:inline-block;font-size:.78rem;font-weight:700;color:var(--cw-black);text-decoration:none;border:1.5px solid var(--cw-border);border-radius:10px;padding:10px 14px;background:var(--cw-white);transition:all .15s;white-space:nowrap}
+.tool:hover{border-color:var(--cw-red);color:var(--cw-red);box-shadow:0 2px 8px rgba(45,42,38,.06)}
+.tool.primary{background:var(--cw-red);border-color:var(--cw-red);color:#fff}
+.tool.primary:hover{background:#b31f27}
 .hero{background:linear-gradient(120deg,var(--cw-black) 0%,#3a3733 100%);color:#fff;border-bottom:5px solid var(--cw-red);padding:26px 0 22px}
 .hero .row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
 .hero h1{font-size:1.7rem;font-weight:700;letter-spacing:.02em}
@@ -79,6 +89,8 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 .gatecard button{width:100%;background:var(--cw-red);color:#fff;border:0;border-radius:8px;font-family:inherit;font-weight:700;font-size:1rem;padding:13px;cursor:pointer}
 .gatecard button:hover{background:#b31f27}
 .gatecard .gerr{color:var(--cw-red);font-size:.72rem;font-weight:700;margin-top:10px;min-height:1em}
+.gatecard .gateback{display:inline-block;margin-top:14px;font-size:.72rem;font-weight:700;color:var(--cw-grey);text-decoration:none}
+.gatecard .gateback:hover{color:var(--cw-red)}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--cw-black);color:#fff;padding:13px 20px;border-radius:10px;font-size:.85rem;display:flex;gap:16px;align-items:center;z-index:110;box-shadow:0 6px 24px rgba(0,0,0,.3)}
 .toast button{background:var(--cw-gold);border:0;border-radius:6px;font-family:inherit;font-weight:700;font-size:.8rem;padding:7px 14px;cursor:pointer;color:var(--cw-black)}
 .offline{background:var(--cw-red);color:#fff;text-align:center;font-size:.75rem;font-weight:700;padding:8px;display:none}
@@ -87,63 +99,85 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 </head>
 <body>
 <header>
-  <div class="wrap bar">
-    <div class="left">
-      <img src="https://emailer.emfluence.com/clients/citywide/uploadedfiles/signature_logo.png" alt="City Wide Facility Solutions">
-      <div class="hubname">Sales Hub</div>
-    </div>
-    <a class="home" href="https://citywidelv.github.io/">City Wide Nevada Home</a>
-  </div>
+<div class="wrap bar">
+<div class="left">
+<img src="https://emailer.emfluence.com/clients/citywide/uploadedfiles/signature_logo.png" alt="City Wide Facility Solutions">
+<div class="hubname">Sales Hub</div>
+</div>
+<a class="home" href="https://citywidelv.github.io/">&larr; Team Portal</a>
+</div>
 </header>
 <div class="offline" id="offline">Cannot reach the tracker right now. Showing the last saved numbers. Entries still save when the connection returns, so try again in a minute.</div>
 
 <section class="hero">
-  <div class="wrap row">
-    <h1>Call Block Scoreboard</h1>
-    <div class="datebox">
-      <div class="today-date" id="todayLabel"></div>
-      <span class="badge next" id="dayBadge"></span>
-    </div>
-  </div>
+<div class="wrap row">
+<h1>Sales Hub</h1>
+<div class="datebox">
+<div class="today-date" id="todayLabel"></div>
+<span class="badge next" id="dayBadge"></span>
+</div>
+</div>
 </section>
 
 <main class="wrap">
-  <div class="section-title">Today<span class="rule"></span></div>
-  <div class="section-sub">Set an appointment? Tap your name and log it the moment you hang up.</div>
+<div class="section-title">Sales Tools<span class="rule"></span></div>
+<div class="section-sub">The forms and calculators reps use in the field. Log every walkthrough in the Building Survey.</div>
+<div class="toolrow">
+<a class="tool primary" href="https://citywidelv.github.io/BuildingSurvey/">Building Survey</a>
+<a class="tool" href="https://citywidelv.github.io/margincalculator/">Margin Calculator</a>
+<a class="tool" href="https://citywidelv.github.io/apartment-turns/">Apartment Turns</a>
+<a class="tool" href="https://citywidelv.github.io/strip-and-wax-calculator/">Waxable Floors</a>
+<a class="tool" href="https://citywidelv.github.io/Carpet-Cleaning/">Carpet Cleaning</a>
+<a class="tool" href="https://citywidelv.github.io/windowcleaningcalculator/">Window Cleaning</a>
+<a class="tool" href="https://citywidelv.github.io/powerwashing/">Pressure Washing</a>
+<a class="tool" href="https://citywidelv.github.io/post-construction-clean/">Post-Construction</a>
+<a class="tool" href="https://citywidelv.github.io/restaurants/">Restaurant Cleaning</a>
+<a class="tool" href="https://citywidelv.github.io/landscapingmaintenance/">Landscaping</a>
+<a class="tool" href="https://citywidelv.github.io/porter-exterior/">Exterior Porter</a>
+<a class="tool" href="https://citywidelv.github.io/retentioncalculator/">Revenue Retention</a>
+</div>
 
-  <div class="big-count">
-    <span class="num" id="todayTotal">0</span>
-    <span class="lbl">Appointments Set Today</span>
-    <span class="sales-mini"><b id="todaySales">0</b>Sales Closed Today</span>
-  </div>
+<div class="section-title">Call Block Scoreboard<span class="rule"></span></div>
+<div class="section-sub">Set an appointment? Tap your name and log it the moment you hang up.</div>
 
-  <div class="tiles" id="tiles"></div>
+<div class="big-count">
+<span class="num" id="todayTotal">0</span>
+<span class="lbl">Appointments Set Today</span>
+<span class="sales-mini"><b id="todaySales">0</b>Sales Closed Today</span>
+</div>
 
-  <div class="section-title">Call Block Leaderboard<span class="rule"></span></div>
-  <div class="section-sub">Appointments on call block days (Tuesdays &amp; Thursdays), plus totals for <span id="monthName"></span>.</div>
-  <div class="board"><table id="board"></table></div>
+<div class="tiles" id="tiles"></div>
 
-  <p class="footnote">Logged something by mistake? Use Undo right after, or tell TJ and it gets fixed in the tracker. New rep on the team? TJ adds a name to the roster and they appear here automatically.</p>
+<div class="section-title">Call Block Leaderboard<span class="rule"></span></div>
+<div class="section-sub">Appointments on the last five call block days (Tuesdays &amp; Thursdays).</div>
+<div class="board"><table id="board"></table></div>
+
+<div class="section-title">Monthly Appointment Scoreboard<span class="rule"></span></div>
+<div class="section-sub">Every appointment and sale in <span id="monthName"></span>, all days counted. Resets automatically on the 1st of each month.</div>
+<div class="board"><table id="monthboard"></table></div>
+
+<p class="footnote">Logged something by mistake? Use Undo right after, or tell TJ and it gets fixed in the tracker. New rep on the team? TJ adds a name to the roster and they appear here automatically.</p>
 </main>
 
 <footer>
-  <div class="wrap">
-    <span>City Wide Facility Solutions | Las Vegas &amp; Northern Nevada</span>
-    <a href="https://www.gocitywide.com">GoCityWide.com</a>
-  </div>
+<div class="wrap">
+<span>City Wide Facility Solutions | Las Vegas &amp; Northern Nevada</span>
+<a href="https://www.gocitywide.com">GoCityWide.com</a>
+</div>
 </footer>
 
 <canvas id="confetti"></canvas>
 
 <div id="gate">
-  <div class="gatecard">
-    <img src="https://emailer.emfluence.com/clients/citywide/uploadedfiles/signature_logo.png" alt="City Wide Facility Solutions">
-    <h2>Sales Hub</h2>
-    <p>Enter the team passcode to continue. Ask TJ if you do not have it.</p>
-    <input type="password" id="gpass" autocomplete="off" placeholder="Team passcode">
-    <button id="gbtn">Enter</button>
-    <div class="gerr" id="gerr"></div>
-  </div>
+<div class="gatecard">
+<img src="https://emailer.emfluence.com/clients/citywide/uploadedfiles/signature_logo.png" alt="City Wide Facility Solutions">
+<h2>Sales Hub</h2>
+<p>Enter the team passcode to continue. Ask TJ if you do not have it.</p>
+<input type="password" id="gpass" autocomplete="off" placeholder="Team passcode">
+<button id="gbtn">Enter</button>
+<div class="gerr" id="gerr"></div>
+<a class="gateback" href="https://citywidelv.github.io/">&larr; Back to the Nevada Team Portal</a>
+</div>
 </div>
 
 <script>
@@ -153,145 +187,158 @@ var TZ="America/Los_Angeles";
 var roster=[],events=[],undoInfo=null,undoTimer=null;
 
 function laDate(d){ // yyyy-mm-dd in LA
-  return new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).format(d||new Date());
+return new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).format(d||new Date());
 }
 function laDow(d){ // 0=Sun..6=Sat in LA
-  var s=new Intl.DateTimeFormat("en-US",{timeZone:TZ,weekday:"short"}).format(d||new Date());
-  return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(s);
+var s=new Intl.DateTimeFormat("en-US",{timeZone:TZ,weekday:"short"}).format(d||new Date());
+return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(s);
 }
 function isCB(dateStr){ // call block = Tue or Thu
-  var d=new Date(dateStr+"T12:00:00");
-  var w=d.getUTCDay();
-  return w===2||w===4;
+var d=new Date(dateStr+"T12:00:00");
+var w=d.getUTCDay();
+return w===2||w===4;
 }
 function fmtShort(dateStr){
-  var d=new Date(dateStr+"T12:00:00");
-  return new Intl.DateTimeFormat("en-US",{timeZone:"UTC",weekday:"short",month:"numeric",day:"numeric"}).format(d);
+var d=new Date(dateStr+"T12:00:00");
+return new Intl.DateTimeFormat("en-US",{timeZone:"UTC",weekday:"short",month:"numeric",day:"numeric"}).format(d);
 }
 
 function todayInfo(){
-  var t=laDate(),w=laDow();
-  var lbl=new Intl.DateTimeFormat("en-US",{timeZone:TZ,weekday:"long",month:"long",day:"numeric"}).format(new Date());
-  document.getElementById("todayLabel").textContent=lbl;
-  var b=document.getElementById("dayBadge");
-  if(w===2||w===4){b.textContent="CALL BLOCK DAY IS LIVE";b.className="badge live";}
-  else{
-    var d=new Date(),add=0;
-    for(add=1;add<=7;add++){var n=new Date(d.getTime()+add*86400000);var wd=laDow(n);if(wd===2||wd===4){b.textContent="Next Call Block: "+new Intl.DateTimeFormat("en-US",{timeZone:TZ,weekday:"long",month:"short",day:"numeric"}).format(n);break;}}
-    b.className="badge next";
-  }
-  return t;
+var t=laDate(),w=laDow();
+var lbl=new Intl.DateTimeFormat("en-US",{timeZone:TZ,weekday:"long",month:"long",day:"numeric"}).format(new Date());
+document.getElementById("todayLabel").textContent=lbl;
+var b=document.getElementById("dayBadge");
+if(w===2||w===4){b.textContent="CALL BLOCK DAY IS LIVE";b.className="badge live";}
+else{
+var d=new Date(),add=0;
+for(add=1;add<=7;add++){var n=new Date(d.getTime()+add*86400000);var wd=laDow(n);if(wd===2||wd===4){b.textContent="Next Call Block: "+new Intl.DateTimeFormat("en-US",{timeZone:TZ,weekday:"long",month:"short",day:"numeric"}).format(n);break;}}
+b.className="badge next";
+}
+return t;
 }
 
 function counts(dateStr,type){
-  var m={};roster.forEach(function(r){m[r]=0;});
-  events.forEach(function(e){if(e.d===dateStr&&e.t===type&&m.hasOwnProperty(e.n))m[e.n]++;});
-  return m;
+var m={};roster.forEach(function(r){m[r]=0;});
+events.forEach(function(e){if(e.d===dateStr&&e.t===type&&m.hasOwnProperty(e.n))m[e.n]++;});
+return m;
 }
 function monthCounts(type){
-  var pre=laDate().slice(0,7),m={};roster.forEach(function(r){m[r]=0;});
-  events.forEach(function(e){if(e.d.slice(0,7)===pre&&e.t===type&&m.hasOwnProperty(e.n))m[e.n]++;});
-  return m;
+var pre=laDate().slice(0,7),m={};roster.forEach(function(r){m[r]=0;});
+events.forEach(function(e){if(e.d.slice(0,7)===pre&&e.t===type&&m.hasOwnProperty(e.n))m[e.n]++;});
+return m;
 }
 function lastCBDays(n){
-  var out=[],d=new Date(),guard=0;
-  while(out.length<n&&guard<60){
-    var ds=laDate(d);
-    if(isCB(ds))out.push(ds);
-    d=new Date(d.getTime()-86400000);guard++;
-  }
-  return out; // newest first, includes today if CB
+var out=[],d=new Date(),guard=0;
+while(out.length<n&&guard<60){
+var ds=laDate(d);
+if(isCB(ds))out.push(ds);
+d=new Date(d.getTime()-86400000);guard++;
+}
+return out; // newest first, includes today if CB
 }
 
 function render(){
-  var today=todayInfo();
-  var ta=counts(today,"appt"),ts=counts(today,"sale");
-  var tot=0,stot=0;roster.forEach(function(r){tot+=ta[r];stot+=ts[r];});
-  document.getElementById("todayTotal").textContent=tot;
-  document.getElementById("todaySales").textContent=stot;
+var today=todayInfo();
+var ta=counts(today,"appt"),ts=counts(today,"sale");
+var tot=0,stot=0;roster.forEach(function(r){tot+=ta[r];stot+=ts[r];});
+document.getElementById("todayTotal").textContent=tot;
+document.getElementById("todaySales").textContent=stot;
 
-  var max=0;roster.forEach(function(r){if(ta[r]>max)max=ta[r];});
-  var tiles=document.getElementById("tiles");tiles.innerHTML="";
-  roster.forEach(function(r){
-    var t=document.createElement("div");
-    t.className="tile"+(max>0&&ta[r]===max?" leader":"");
-    t.innerHTML='<div class="name"></div><div class="count"></div><div class="unit">Appointments Today</div>'+
-      '<div class="btns"><button class="appt">+ Appointment</button><button class="sale">+ Sale Closed</button></div>';
-    t.querySelector(".name").textContent=r;
-    t.querySelector(".count").textContent=ta[r];
-    t.querySelector(".appt").onclick=function(){logEvent(r,"appt");};
-    t.querySelector(".sale").onclick=function(){logEvent(r,"sale");};
-    tiles.appendChild(t);
-  });
+var max=0;roster.forEach(function(r){if(ta[r]>max)max=ta[r];});
+var tiles=document.getElementById("tiles");tiles.innerHTML="";
+roster.forEach(function(r){
+var t=document.createElement("div");
+t.className="tile"+(max>0&&ta[r]===max?" leader":"");
+t.innerHTML='<div class="name"></div><div class="count"></div><div class="unit">Appointments Today</div>'+
+'<div class="btns"><button class="appt">+ Appointment</button><button class="sale">+ Sale Closed</button></div>';
+t.querySelector(".name").textContent=r;
+t.querySelector(".count").textContent=ta[r];
+t.querySelector(".appt").onclick=function(){logEvent(r,"appt");};
+t.querySelector(".sale").onclick=function(){logEvent(r,"sale");};
+tiles.appendChild(t);
+});
 
-  var monthLabel=new Intl.DateTimeFormat("en-US",{timeZone:TZ,month:"long"}).format(new Date());
-  document.getElementById("monthName").textContent=monthLabel;
-  var cbs=lastCBDays(5);
-  var ma=monthCounts("appt"),ms=monthCounts("sale");
-  var order=roster.slice().sort(function(a,b){return (ma[b]-ma[a])||(ms[b]-ms[a])||a.localeCompare(b);});
-  var html="<thead><tr><th>Rep</th>";
-  cbs.slice().reverse().forEach(function(ds){
-    html+='<th class="'+(ds===today?"todaycol":"")+'">'+fmtShort(ds)+(ds===today?" (Today)":"")+"</th>";
-  });
-  html+="<th>"+monthLabel+" Appts</th><th>"+monthLabel+" Sales</th></tr></thead><tbody>";
-  order.forEach(function(r,i){
-    html+='<tr class="'+(i===0&&ma[r]>0?"first":"")+'"><td class="rep">'+r+"</td>";
-    cbs.slice().reverse().forEach(function(ds){
-      var c=0;events.forEach(function(e){if(e.d===ds&&e.n===r&&e.t==="appt")c++;});
-      html+='<td class="'+(ds===today?"todaycol":"")+(c===0?" zero":"")+'">'+c+"</td>";
-    });
-    html+='<td class="mtot">'+ma[r]+'</td><td class="msales">'+ms[r]+"</td></tr>";
-  });
-  html+="</tbody>";
-  document.getElementById("board").innerHTML=html;
+var monthLabel=new Intl.DateTimeFormat("en-US",{timeZone:TZ,month:"long"}).format(new Date());
+document.getElementById("monthName").textContent=monthLabel;
+var cbs=lastCBDays(5);
+var ma=monthCounts("appt"),ms=monthCounts("sale");
+
+// Call Block Leaderboard: last five CB days only, ranked by that window
+var cbTot={};roster.forEach(function(r){cbTot[r]=0;});
+events.forEach(function(e){if(e.t==="appt"&&cbs.indexOf(e.d)>=0&&cbTot.hasOwnProperty(e.n))cbTot[e.n]++;});
+var cbOrder=roster.slice().sort(function(a,b){return (cbTot[b]-cbTot[a])||a.localeCompare(b);});
+var html="<thead><tr><th>Rep</th>";
+cbs.slice().reverse().forEach(function(ds){
+html+='<th class="'+(ds===today?"todaycol":"")+'">'+fmtShort(ds)+(ds===today?" (Today)":"")+"</th>";
+});
+html+="<th>5-Day Total</th></tr></thead><tbody>";
+cbOrder.forEach(function(r,i){
+html+='<tr class="'+(i===0&&cbTot[r]>0?"first":"")+'"><td class="rep">'+r+"</td>";
+cbs.slice().reverse().forEach(function(ds){
+var c=0;events.forEach(function(e){if(e.d===ds&&e.n===r&&e.t==="appt")c++;});
+html+='<td class="'+(ds===today?"todaycol":"")+(c===0?" zero":"")+'">'+c+"</td>";
+});
+html+='<td class="mtot'+(cbTot[r]===0?" zero":"")+'">'+cbTot[r]+"</td></tr>";
+});
+html+="</tbody>";
+document.getElementById("board").innerHTML=html;
+
+// Monthly Appointment Scoreboard: current month only; rolls to zero when a new month starts
+var order=roster.slice().sort(function(a,b){return (ma[b]-ma[a])||(ms[b]-ms[a])||a.localeCompare(b);});
+var mhtml="<thead><tr><th>Rep</th><th>"+monthLabel+" Appointments</th><th>"+monthLabel+" Sales</th></tr></thead><tbody>";
+order.forEach(function(r,i){
+mhtml+='<tr class="'+(i===0&&ma[r]>0?"first":"")+'"><td class="rep">'+r+'</td><td class="mtot'+(ma[r]===0?" zero":"")+'">'+ma[r]+'</td><td class="msales">'+ms[r]+"</td></tr>";
+});
+mhtml+="</tbody>";
+document.getElementById("monthboard").innerHTML=mhtml;
 }
 
 function load(first){
-  fetch(EXEC+"?sales=feed&_="+Date.now())
-    .then(function(r){return r.json();})
-    .then(function(j){
-      if(!j||!j.ok)throw new Error("bad feed");
-      roster=j.roster;events=j.events;
-      try{localStorage.setItem("cw_sales_cache",JSON.stringify({roster:roster,events:events}));}catch(e){}
-      document.getElementById("offline").style.display="none";
-      render();
-    })
-    .catch(function(){
-      document.getElementById("offline").style.display="block";
-      if(first){
-        try{var c=JSON.parse(localStorage.getItem("cw_sales_cache")||"null");if(c){roster=c.roster;events=c.events;}}catch(e){}
-        render();
-      }
-    });
+fetch(EXEC+"?sales=feed&_="+Date.now())
+.then(function(r){return r.json();})
+.then(function(j){
+if(!j||!j.ok)throw new Error("bad feed");
+roster=j.roster;events=j.events;
+try{localStorage.setItem("cw_sales_cache",JSON.stringify({roster:roster,events:events}));}catch(e){}
+document.getElementById("offline").style.display="none";
+render();
+})
+.catch(function(){
+document.getElementById("offline").style.display="block";
+if(first){
+try{var c=JSON.parse(localStorage.getItem("cw_sales_cache")||"null");if(c){roster=c.roster;events=c.events;}}catch(e){}
+render();
+}
+});
 }
 
 function logEvent(name,type){
-  // optimistic update
-  events.push({d:laDate(),n:name,t:type});
-  render();
-  celebrate(type);
-  showUndo(name,type);
-  fetch(EXEC,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify({kind:"sales_event",name:name,type:type})})
-    .then(function(r){return r.json();})
-    .then(function(j){if(!j||!j.ok){throw new Error("save failed");}setTimeout(load,4000);})
-    .catch(function(){document.getElementById("offline").style.display="block";});
+// optimistic update
+events.push({d:laDate(),n:name,t:type});
+render();
+celebrate(type);
+showUndo(name,type);
+fetch(EXEC,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+body:JSON.stringify({kind:"sales_event",name:name,type:type})})
+.then(function(r){return r.json();})
+.then(function(j){if(!j||!j.ok){throw new Error("save failed");}setTimeout(load,4000);})
+.catch(function(){document.getElementById("offline").style.display="block";});
 }
 
 function showUndo(name,type){
-  clearTimeout(undoTimer);
-  var old=document.querySelector(".toast");if(old)old.remove();
-  var t=document.createElement("div");t.className="toast";
-  t.innerHTML="<span></span><button>Undo</button>";
-  t.querySelector("span").textContent=(type==="appt"?"Appointment":"Sale")+" logged for "+name+"!";
-  t.querySelector("button").onclick=function(){
-    fetch(EXEC,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body:JSON.stringify({kind:"sales_undo",name:name,type:type})}).then(function(){load();});
-    for(var i=events.length-1;i>=0;i--){if(events[i].n===name&&events[i].t===type){events.splice(i,1);break;}}
-    render();t.remove();
-  };
-  document.body.appendChild(t);
-  undoTimer=setTimeout(function(){t.remove();},15000);
+clearTimeout(undoTimer);
+var old=document.querySelector(".toast");if(old)old.remove();
+var t=document.createElement("div");t.className="toast";
+t.innerHTML="<span></span><button>Undo</button>";
+t.querySelector("span").textContent=(type==="appt"?"Appointment":"Sale")+" logged for "+name+"!";
+t.querySelector("button").onclick=function(){
+fetch(EXEC,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+body:JSON.stringify({kind:"sales_undo",name:name,type:type})}).then(function(){load();});
+for(var i=events.length-1;i>=0;i--){if(events[i].n===name&&events[i].t===type){events.splice(i,1);break;}}
+render();t.remove();
+};
+document.body.appendChild(t);
+undoTimer=setTimeout(function(){t.remove();},15000);
 }
 
 /* ---- Gold confetti ---- */
@@ -300,97 +347,97 @@ function sizeCanvas(){cv.width=innerWidth;cv.height=innerHeight;}
 addEventListener("resize",sizeCanvas);sizeCanvas();
 var GOLD=["#E5B423","#F1C40F","#FFD966","#D4A017","#FFF2B2","#C99700"];
 function burst(x,y,n,spread,colors){
-  for(var i=0;i<n;i++){
-    var a=(Math.random()*spread-spread/2)-Math.PI/2;
-    var v=6+Math.random()*9;
-    parts.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,g:.22+Math.random()*.1,
-      w:6+Math.random()*7,h:3+Math.random()*5,rot:Math.random()*Math.PI,vr:(Math.random()-.5)*.3,
-      c:colors[Math.floor(Math.random()*colors.length)],life:90+Math.random()*50});
-  }
-  if(!raf)tick();
+for(var i=0;i<n;i++){
+var a=(Math.random()*spread-spread/2)-Math.PI/2;
+var v=6+Math.random()*9;
+parts.push({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,g:.22+Math.random()*.1,
+w:6+Math.random()*7,h:3+Math.random()*5,rot:Math.random()*Math.PI,vr:(Math.random()-.5)*.3,
+c:colors[Math.floor(Math.random()*colors.length)],life:90+Math.random()*50});
+}
+if(!raf)tick();
 }
 function tick(){
-  raf=requestAnimationFrame(tick);
-  cx.clearRect(0,0,cv.width,cv.height);
-  parts=parts.filter(function(p){return p.life>0&&p.y<cv.height+40;});
-  if(!parts.length){cancelAnimationFrame(raf);raf=null;cx.clearRect(0,0,cv.width,cv.height);return;}
-  parts.forEach(function(p){
-    p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.rot+=p.vr;p.life--;
-    cx.save();cx.translate(p.x,p.y);cx.rotate(p.rot);
-    cx.globalAlpha=Math.max(0,Math.min(1,p.life/60));
-    cx.fillStyle=p.c;cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
-    cx.restore();
-  });
+raf=requestAnimationFrame(tick);
+cx.clearRect(0,0,cv.width,cv.height);
+parts=parts.filter(function(p){return p.life>0&&p.y<cv.height+40;});
+if(!parts.length){cancelAnimationFrame(raf);raf=null;cx.clearRect(0,0,cv.width,cv.height);return;}
+parts.forEach(function(p){
+p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.rot+=p.vr;p.life--;
+cx.save();cx.translate(p.x,p.y);cx.rotate(p.rot);
+cx.globalAlpha=Math.max(0,Math.min(1,p.life/60));
+cx.fillStyle=p.c;cx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+cx.restore();
+});
 }
 function celebrate(type){
-  var W=cv.width,H=cv.height;
-  burst(W*0.5,H*0.55,90,2.4,GOLD);
-  burst(W*0.15,H*0.85,60,1.6,GOLD);
-  burst(W*0.85,H*0.85,60,1.6,GOLD);
-  if(type==="sale"){
-    setTimeout(function(){burst(W*0.5,H*0.4,120,2.8,GOLD.concat(["#D22730","#FFFFFF"]));},250);
-    setTimeout(function(){burst(W*0.3,H*0.7,70,2,GOLD);burst(W*0.7,H*0.7,70,2,GOLD);},500);
-  }
+var W=cv.width,H=cv.height;
+burst(W*0.5,H*0.55,90,2.4,GOLD);
+burst(W*0.15,H*0.85,60,1.6,GOLD);
+burst(W*0.85,H*0.85,60,1.6,GOLD);
+if(type==="sale"){
+setTimeout(function(){burst(W*0.5,H*0.4,120,2.8,GOLD.concat(["#D22730","#FFFFFF"]));},250);
+setTimeout(function(){burst(W*0.3,H*0.7,70,2,GOLD);burst(W*0.7,H*0.7,70,2,GOLD);},500);
+}
 }
 
 /* ---- Team passcode gate (validated server-side, cached per device) ---- */
 var AUTH_KEY="cw_sales_auth";
 var appStarted=false;
 function startApp(){
-  if(appStarted)return;
-  appStarted=true;
-  load(true);
-  setInterval(load,60000);
-  setInterval(function(){todayInfo();},300000);
+if(appStarted)return;
+appStarted=true;
+load(true);
+setInterval(load,60000);
+setInterval(function(){todayInfo();},300000);
 }
 function validatePass(pass){
-  return fetch(EXEC,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify({kind:"auth",passcode:pass})})
-    .then(function(r){return r.json();})
-    .then(function(j){
-      if(!j)return false;
-      if(j.ok===false||j.error)return false;
-      return !!(j.ok===true||j.sections||j.links||j.cards);
-    })
-    .catch(function(){return null;}); // null = could not reach server
+return fetch(EXEC,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+body:JSON.stringify({kind:"auth",passcode:pass})})
+.then(function(r){return r.json();})
+.then(function(j){
+if(!j)return false;
+if(j.ok===false||j.error)return false;
+return !!(j.ok===true||j.sections||j.links||j.cards);
+})
+.catch(function(){return null;}); // null = could not reach server
 }
 function initGate(){
-  var gate=document.getElementById("gate"),inp=document.getElementById("gpass"),
-      btn=document.getElementById("gbtn"),err=document.getElementById("gerr");
-  function submit(){
-    var v=inp.value.trim();
-    if(!v)return;
-    btn.disabled=true;err.textContent="Checking...";
-    validatePass(v).then(function(ok){
-      btn.disabled=false;
-      if(ok===true){
-        try{localStorage.setItem(AUTH_KEY,v);}catch(e){}
-        gate.style.display="none";
-        startApp();
-      }else if(ok===null){
-        err.textContent="Cannot reach the server. Check the connection and try again.";
-      }else{
-        err.textContent="That passcode is not right. Ask TJ if you need it.";
-        inp.value="";inp.focus();
-      }
-    });
-  }
-  btn.onclick=submit;
-  inp.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
-  var saved=null;
-  try{saved=localStorage.getItem(AUTH_KEY);}catch(e){}
-  if(saved){
-    startApp(); // show immediately for the TV; revalidate in the background
-    validatePass(saved).then(function(ok){
-      if(ok===false){
-        try{localStorage.removeItem(AUTH_KEY);}catch(e){}
-        location.reload();
-      }
-    });
-  }else{
-    gate.style.display="flex";
-    inp.focus();
-  }
+var gate=document.getElementById("gate"),inp=document.getElementById("gpass"),
+btn=document.getElementById("gbtn"),err=document.getElementById("gerr");
+function submit(){
+var v=inp.value.trim();
+if(!v)return;
+btn.disabled=true;err.textContent="Checking...";
+validatePass(v).then(function(ok){
+btn.disabled=false;
+if(ok===true){
+try{localStorage.setItem(AUTH_KEY,v);}catch(e){}
+gate.style.display="none";
+startApp();
+}else if(ok===null){
+err.textContent="Cannot reach the server. Check the connection and try again.";
+}else{
+err.textContent="That passcode is not right. Ask TJ if you need it.";
+inp.value="";inp.focus();
+}
+});
+}
+btn.onclick=submit;
+inp.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+var saved=null;
+try{saved=localStorage.getItem(AUTH_KEY);}catch(e){}
+if(saved){
+startApp(); // show immediately for the TV; revalidate in the background
+validatePass(saved).then(function(ok){
+if(ok===false){
+try{localStorage.removeItem(AUTH_KEY);}catch(e){}
+location.reload();
+}
+});
+}else{
+gate.style.display="flex";
+inp.focus();
+}
 }
 initGate();
 </script>
