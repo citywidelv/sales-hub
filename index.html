@@ -22,14 +22,32 @@ header{position:sticky;top:0;background:var(--cw-white);border-bottom:1px solid 
 .bar .left{display:flex;align-items:center;gap:14px}
 .bar img{height:38px;width:auto;display:block}
 .bar .hubname{font-size:.78rem;color:var(--cw-grey);border-left:3px solid var(--cw-gold);padding-left:10px;text-transform:uppercase;letter-spacing:.08em}
+.bar .navright{display:flex;align-items:center;gap:10px}
 .bar a.home{font-size:.72rem;color:var(--cw-grey);text-decoration:none;font-weight:700;
 border:1px solid var(--cw-border);border-radius:14px;padding:6px 14px;background:var(--cw-light);white-space:nowrap}
 .bar a.home:hover{background:var(--cw-red);color:#fff;border-color:var(--cw-red)}
-.toolrow{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
-.tool{display:inline-block;font-size:.78rem;font-weight:700;color:var(--cw-black);text-decoration:none;border:1.5px solid var(--cw-border);border-radius:10px;padding:10px 14px;background:var(--cw-white);transition:all .15s;white-space:nowrap}
-.tool:hover{border-color:var(--cw-red);color:var(--cw-red);box-shadow:0 2px 8px rgba(45,42,38,.06)}
-.tool.primary{background:var(--cw-red);border-color:var(--cw-red);color:#fff}
-.tool.primary:hover{background:#b31f27}
+
+/* ---- Sales Tools dropdown ---- */
+.menu{position:relative}
+.menubtn{font-family:inherit;font-size:.72rem;font-weight:700;color:var(--cw-black);background:var(--cw-white);
+border:1.5px solid var(--cw-border);border-radius:14px;padding:6px 15px;cursor:pointer;
+display:flex;align-items:center;gap:8px;white-space:nowrap;transition:all .15s}
+.menubtn:hover{border-color:var(--cw-red);color:var(--cw-red)}
+.menubtn[aria-expanded="true"]{background:var(--cw-red);border-color:var(--cw-red);color:#fff}
+.menubtn .caret{font-size:.55rem;line-height:1}
+.menupanel{display:none;position:absolute;top:calc(100% + 9px);right:0;background:var(--cw-white);
+border:1px solid var(--cw-border);border-radius:12px;box-shadow:0 14px 36px rgba(45,42,38,.20);
+padding:8px;min-width:440px;z-index:40;grid-template-columns:1fr 1fr;gap:1px 8px}
+.menupanel.open{display:grid}
+.menupanel a{display:block;font-size:.76rem;font-weight:700;color:var(--cw-black);text-decoration:none;
+padding:9px 12px;border-radius:8px;white-space:nowrap}
+.menupanel a:hover{background:var(--cw-light);color:var(--cw-red)}
+.menupanel a.primary{color:var(--cw-red)}
+.menupanel .grouphead{grid-column:1/-1;font-size:.6rem;text-transform:uppercase;letter-spacing:.09em;
+color:var(--cw-grey);font-weight:700;padding:10px 12px 3px}
+.menupanel .menunote{grid-column:1/-1;font-size:.66rem;color:var(--cw-grey);padding:9px 12px 4px;
+border-top:1px solid var(--cw-border);margin-top:6px;white-space:normal}
+
 .hero{background:linear-gradient(120deg,var(--cw-black) 0%,#3a3733 100%);color:#fff;border-bottom:5px solid var(--cw-red);padding:26px 0 22px}
 .hero .row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
 .hero h1{font-size:1.7rem;font-weight:700;letter-spacing:.02em}
@@ -47,22 +65,30 @@ border:1px solid var(--cw-border);border-radius:14px;padding:6px 14px;background
 .big-count .lbl{font-size:.95rem;color:var(--cw-grey);font-weight:700}
 .big-count .sales-mini{margin-left:auto;text-align:right;font-size:.8rem;color:var(--cw-grey)}
 .big-count .sales-mini b{font-size:1.6rem;color:var(--cw-teal);display:block;line-height:1.1}
-.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:18px}
-.tile{background:var(--cw-white);border:1px solid var(--cw-border);border-radius:12px;padding:20px 20px 18px;text-align:center;box-shadow:0 2px 8px rgba(45,42,38,.06);position:relative;overflow:hidden}
-.tile .name{font-size:1.25rem;font-weight:700}
-.tile .count{font-size:4.2rem;font-weight:700;line-height:1.05;margin:6px 0 2px}
-.tile .unit{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--cw-grey)}
-.tile .btns{display:flex;gap:10px;margin-top:16px}
-.tile button{flex:1;border:0;border-radius:8px;font-family:inherit;font-weight:700;font-size:.9rem;padding:13px 6px;cursor:pointer;transition:transform .08s ease}
+
+/* ---- Rep tiles: one row, slightly smaller ---- */
+.tiles{display:grid;grid-template-columns:repeat(var(--cols,4),1fr);gap:14px;margin-top:18px}
+.tile{background:var(--cw-white);border:1px solid var(--cw-border);border-radius:12px;
+padding:27px 14px 16px;text-align:center;box-shadow:0 2px 8px rgba(45,42,38,.06);position:relative;overflow:hidden}
+.tile .name{font-size:1.05rem;font-weight:700}
+.tile .count{font-size:3.2rem;font-weight:700;line-height:1.05;margin:4px 0 2px}
+.tile .unit{font-size:.61rem;text-transform:uppercase;letter-spacing:.07em;color:var(--cw-grey)}
+.tile .btns{display:flex;gap:8px;margin-top:13px}
+.tile button{flex:1;border:0;border-radius:8px;font-family:inherit;font-weight:700;font-size:.78rem;
+padding:11px 4px;cursor:pointer;transition:transform .08s ease;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .tile button:active{transform:scale(.96)}
+.tile button .lbl-sm{display:none}
 .tile .appt{background:var(--cw-red);color:#fff}
 .tile .appt:hover{background:#b31f27}
 .tile .sale{background:var(--cw-white);color:var(--cw-black);border:2px solid var(--cw-black)}
 .tile .sale:hover{background:var(--cw-black);color:#fff}
-.tile.leader{border:2px solid var(--cw-gold);box-shadow:0 4px 16px rgba(229,180,35,.35)}
-.tile.leader::after{content:"TODAY'S LEADER";position:absolute;top:10px;right:-34px;transform:rotate(35deg);background:var(--cw-gold);color:var(--cw-black);font-size:.55rem;font-weight:700;letter-spacing:.05em;padding:3px 36px}
+.tile.leader{border-color:var(--cw-gold);box-shadow:inset 0 0 0 2px var(--cw-gold),0 4px 16px rgba(229,180,35,.35)}
+.tile.leader::after{content:"TODAY'S LEADER";position:absolute;top:0;left:0;right:0;
+background:var(--cw-gold);color:var(--cw-black);font-size:.58rem;font-weight:700;
+letter-spacing:.09em;padding:5px 0;text-align:center}
+
 .board{background:var(--cw-white);border:1px solid var(--cw-border);border-radius:12px;overflow:auto;box-shadow:0 2px 8px rgba(45,42,38,.06)}
-table{border-collapse:collapse;width:100%;min-width:640px}
+table{border-collapse:collapse;width:100%;min-width:520px}
 th{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--cw-grey);font-weight:700;text-align:center;padding:12px 10px;border-bottom:2px solid var(--cw-border);white-space:nowrap}
 th:first-child,td:first-child{text-align:left;padding-left:20px}
 td{padding:13px 10px;text-align:center;font-size:1rem;border-bottom:1px solid var(--cw-light)}
@@ -70,7 +96,6 @@ tr:last-child td{border-bottom:0}
 td.rep{font-weight:700;font-size:1.05rem;white-space:nowrap}
 td.mtot{font-weight:700;font-size:1.3rem}
 td.msales{color:var(--cw-teal);font-weight:700}
-th.todaycol,td.todaycol{background:#fdf6e1}
 tr.first td{background:#fffaf0}
 tr.first td.rep::after{content:" 👑"}
 .zero{color:#c9c7c4}
@@ -94,7 +119,33 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--cw-black);color:#fff;padding:13px 20px;border-radius:10px;font-size:.85rem;display:flex;gap:16px;align-items:center;z-index:110;box-shadow:0 6px 24px rgba(0,0,0,.3)}
 .toast button{background:var(--cw-gold);border:0;border-radius:6px;font-family:inherit;font-weight:700;font-size:.8rem;padding:7px 14px;cursor:pointer;color:var(--cw-black)}
 .offline{background:var(--cw-red);color:#fff;text-align:center;font-size:.75rem;font-weight:700;padding:8px;display:none}
-@media(max-width:640px){.big-count .num{font-size:2.6rem}.tile .count{font-size:3.2rem}.hero h1{font-size:1.25rem}}
+@media(max-width:1120px){
+.tile button .lbl-lg{display:none}
+.tile button .lbl-sm{display:inline}
+.tile .name{font-size:1rem}
+.tile .count{font-size:3rem}
+}
+@media(max-width:860px){.tiles{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}}
+@media(max-width:820px){
+.bar{flex-wrap:wrap;row-gap:10px}
+.bar .hubname{display:none}
+.bar .navright{width:100%;justify-content:flex-end}
+.tile button{font-size:.72rem;padding:11px 2px}
+}
+@media(max-width:640px){
+.big-count .num{font-size:2.6rem}
+.tile .count{font-size:2.7rem}
+.hero h1{font-size:1.25rem}
+.bar img{height:32px}
+.bar .navright{justify-content:space-between}
+.menubtn,.bar a.home{font-size:.68rem;padding:6px 12px}
+.tiles{grid-template-columns:repeat(auto-fit,minmax(146px,1fr))}
+.tile{padding:26px 10px 14px}
+.tile .name{font-size:.95rem}
+.tile .btns{gap:6px}
+.tile button{font-size:.72rem;padding:11px 2px}
+.menupanel{min-width:0;width:calc(100vw - 44px);grid-template-columns:1fr;max-height:70vh;overflow:auto}
+}
 </style>
 </head>
 <body>
@@ -104,7 +155,29 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 <img src="https://emailer.emfluence.com/clients/citywide/uploadedfiles/signature_logo.png" alt="City Wide Facility Solutions">
 <div class="hubname">Sales Hub</div>
 </div>
+<div class="navright">
+<div class="menu">
+<button class="menubtn" id="toolsBtn" type="button" aria-expanded="false" aria-haspopup="true">Sales Tools <span class="caret">&#9660;</span></button>
+<div class="menupanel" id="toolsPanel">
+<div class="grouphead">Field Tools</div>
+<a class="primary" href="https://citywidelv.github.io/BuildingSurvey/">Building Survey</a>
+<a href="https://citywidelv.github.io/margincalculator/">Margin Calculator</a>
+<a href="https://citywidelv.github.io/retentioncalculator/">Revenue Retention</a>
+<div class="grouphead">Pricing Calculators</div>
+<a href="https://citywidelv.github.io/apartment-turns/">Apartment Turns</a>
+<a href="https://citywidelv.github.io/strip-and-wax-calculator/">Waxable Floors</a>
+<a href="https://citywidelv.github.io/Carpet-Cleaning/">Carpet Cleaning</a>
+<a href="https://citywidelv.github.io/windowcleaningcalculator/">Window Cleaning</a>
+<a href="https://citywidelv.github.io/powerwashing/">Pressure Washing</a>
+<a href="https://citywidelv.github.io/post-construction-clean/">Post-Construction</a>
+<a href="https://citywidelv.github.io/restaurants/">Restaurant Cleaning</a>
+<a href="https://citywidelv.github.io/landscapingmaintenance/">Landscaping</a>
+<a href="https://citywidelv.github.io/porter-exterior/">Exterior Porter</a>
+<div class="menunote">Log every walkthrough in the Building Survey.</div>
+</div>
+</div>
 <a class="home" href="https://citywidelv.github.io/">&larr; Team Portal</a>
+</div>
 </div>
 </header>
 <div class="offline" id="offline">Cannot reach the tracker right now. Showing the last saved numbers. Entries still save when the connection returns, so try again in a minute.</div>
@@ -120,23 +193,6 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 </section>
 
 <main class="wrap">
-<div class="section-title">Sales Tools<span class="rule"></span></div>
-<div class="section-sub">The forms and calculators reps use in the field. Log every walkthrough in the Building Survey.</div>
-<div class="toolrow">
-<a class="tool primary" href="https://citywidelv.github.io/BuildingSurvey/">Building Survey</a>
-<a class="tool" href="https://citywidelv.github.io/margincalculator/">Margin Calculator</a>
-<a class="tool" href="https://citywidelv.github.io/apartment-turns/">Apartment Turns</a>
-<a class="tool" href="https://citywidelv.github.io/strip-and-wax-calculator/">Waxable Floors</a>
-<a class="tool" href="https://citywidelv.github.io/Carpet-Cleaning/">Carpet Cleaning</a>
-<a class="tool" href="https://citywidelv.github.io/windowcleaningcalculator/">Window Cleaning</a>
-<a class="tool" href="https://citywidelv.github.io/powerwashing/">Pressure Washing</a>
-<a class="tool" href="https://citywidelv.github.io/post-construction-clean/">Post-Construction</a>
-<a class="tool" href="https://citywidelv.github.io/restaurants/">Restaurant Cleaning</a>
-<a class="tool" href="https://citywidelv.github.io/landscapingmaintenance/">Landscaping</a>
-<a class="tool" href="https://citywidelv.github.io/porter-exterior/">Exterior Porter</a>
-<a class="tool" href="https://citywidelv.github.io/retentioncalculator/">Revenue Retention</a>
-</div>
-
 <div class="section-title">Call Block Scoreboard<span class="rule"></span></div>
 <div class="section-sub">Set an appointment? Tap your name and log it the moment you hang up.</div>
 
@@ -147,10 +203,6 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 </div>
 
 <div class="tiles" id="tiles"></div>
-
-<div class="section-title">Call Block Leaderboard<span class="rule"></span></div>
-<div class="section-sub">Appointments on the last five call block days (Tuesdays &amp; Thursdays).</div>
-<div class="board"><table id="board"></table></div>
 
 <div class="section-title">Monthly Appointment Scoreboard<span class="rule"></span></div>
 <div class="section-sub">Every appointment and sale in <span id="monthName"></span>, all days counted. Resets automatically on the 1st of each month.</div>
@@ -184,7 +236,8 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 "use strict";
 var EXEC="https://script.google.com/macros/s/AKfycbzfNnrpidCbWB1DeUNgXvRhDFMQgApfpn-3C9GU45wMEHcJpWFl8ZQVo6PUBSRfEVfRdg/exec";
 var TZ="America/Los_Angeles";
-var roster=[],events=[],undoInfo=null,undoTimer=null;
+var MAXCOLS=6;
+var roster=[],events=[],undoTimer=null;
 
 function laDate(d){ // yyyy-mm-dd in LA
 return new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).format(d||new Date());
@@ -192,15 +245,6 @@ return new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digi
 function laDow(d){ // 0=Sun..6=Sat in LA
 var s=new Intl.DateTimeFormat("en-US",{timeZone:TZ,weekday:"short"}).format(d||new Date());
 return ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(s);
-}
-function isCB(dateStr){ // call block = Tue or Thu
-var d=new Date(dateStr+"T12:00:00");
-var w=d.getUTCDay();
-return w===2||w===4;
-}
-function fmtShort(dateStr){
-var d=new Date(dateStr+"T12:00:00");
-return new Intl.DateTimeFormat("en-US",{timeZone:"UTC",weekday:"short",month:"numeric",day:"numeric"}).format(d);
 }
 
 function todayInfo(){
@@ -227,15 +271,6 @@ var pre=laDate().slice(0,7),m={};roster.forEach(function(r){m[r]=0;});
 events.forEach(function(e){if(e.d.slice(0,7)===pre&&e.t===type&&m.hasOwnProperty(e.n))m[e.n]++;});
 return m;
 }
-function lastCBDays(n){
-var out=[],d=new Date(),guard=0;
-while(out.length<n&&guard<60){
-var ds=laDate(d);
-if(isCB(ds))out.push(ds);
-d=new Date(d.getTime()-86400000);guard++;
-}
-return out; // newest first, includes today if CB
-}
 
 function render(){
 var today=todayInfo();
@@ -246,11 +281,13 @@ document.getElementById("todaySales").textContent=stot;
 
 var max=0;roster.forEach(function(r){if(ta[r]>max)max=ta[r];});
 var tiles=document.getElementById("tiles");tiles.innerHTML="";
+tiles.style.setProperty("--cols",Math.max(1,Math.min(roster.length,MAXCOLS)));
 roster.forEach(function(r){
 var t=document.createElement("div");
 t.className="tile"+(max>0&&ta[r]===max?" leader":"");
 t.innerHTML='<div class="name"></div><div class="count"></div><div class="unit">Appointments Today</div>'+
-'<div class="btns"><button class="appt">+ Appointment</button><button class="sale">+ Sale Closed</button></div>';
+'<div class="btns"><button class="appt"><span class="lbl-lg">+ Appointment</span><span class="lbl-sm">+ Appt</span></button>'+
+'<button class="sale">+ Sale</button></div>';
 t.querySelector(".name").textContent=r;
 t.querySelector(".count").textContent=ta[r];
 t.querySelector(".appt").onclick=function(){logEvent(r,"appt");};
@@ -260,28 +297,7 @@ tiles.appendChild(t);
 
 var monthLabel=new Intl.DateTimeFormat("en-US",{timeZone:TZ,month:"long"}).format(new Date());
 document.getElementById("monthName").textContent=monthLabel;
-var cbs=lastCBDays(5);
 var ma=monthCounts("appt"),ms=monthCounts("sale");
-
-// Call Block Leaderboard: last five CB days only, ranked by that window
-var cbTot={};roster.forEach(function(r){cbTot[r]=0;});
-events.forEach(function(e){if(e.t==="appt"&&cbs.indexOf(e.d)>=0&&cbTot.hasOwnProperty(e.n))cbTot[e.n]++;});
-var cbOrder=roster.slice().sort(function(a,b){return (cbTot[b]-cbTot[a])||a.localeCompare(b);});
-var html="<thead><tr><th>Rep</th>";
-cbs.slice().reverse().forEach(function(ds){
-html+='<th class="'+(ds===today?"todaycol":"")+'">'+fmtShort(ds)+(ds===today?" (Today)":"")+"</th>";
-});
-html+="<th>5-Day Total</th></tr></thead><tbody>";
-cbOrder.forEach(function(r,i){
-html+='<tr class="'+(i===0&&cbTot[r]>0?"first":"")+'"><td class="rep">'+r+"</td>";
-cbs.slice().reverse().forEach(function(ds){
-var c=0;events.forEach(function(e){if(e.d===ds&&e.n===r&&e.t==="appt")c++;});
-html+='<td class="'+(ds===today?"todaycol":"")+(c===0?" zero":"")+'">'+c+"</td>";
-});
-html+='<td class="mtot'+(cbTot[r]===0?" zero":"")+'">'+cbTot[r]+"</td></tr>";
-});
-html+="</tbody>";
-document.getElementById("board").innerHTML=html;
 
 // Monthly Appointment Scoreboard: current month only; rolls to zero when a new month starts
 var order=roster.slice().sort(function(a,b){return (ma[b]-ma[a])||(ms[b]-ms[a])||a.localeCompare(b);});
@@ -340,6 +356,20 @@ render();t.remove();
 document.body.appendChild(t);
 undoTimer=setTimeout(function(){t.remove();},15000);
 }
+
+/* ---- Sales Tools dropdown ---- */
+(function(){
+var btn=document.getElementById("toolsBtn"),panel=document.getElementById("toolsPanel");
+function close(){panel.classList.remove("open");btn.setAttribute("aria-expanded","false");}
+btn.addEventListener("click",function(e){
+e.stopPropagation();
+var open=!panel.classList.contains("open");
+panel.classList.toggle("open",open);
+btn.setAttribute("aria-expanded",open?"true":"false");
+});
+document.addEventListener("click",function(e){if(!panel.contains(e.target)&&!btn.contains(e.target))close();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")close();});
+})();
 
 /* ---- Gold confetti ---- */
 var cv=document.getElementById("confetti"),cx=cv.getContext("2d"),parts=[],raf=null;
