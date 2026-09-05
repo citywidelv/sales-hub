@@ -177,6 +177,11 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 <a href="https://citywidelv.github.io/restaurants/">Restaurant Cleaning</a>
 <a href="https://citywidelv.github.io/landscapingmaintenance/">Landscaping</a>
 <a href="https://citywidelv.github.io/porter-exterior/">Exterior Porter</a>
+<div class="grouphead">Sales Apps</div>
+<a href="https://gocitywide.crm.dynamics.com/main.aspx" target="_blank" rel="noopener">CW Sales CRM</a>
+<a href="https://app.zoominfo.com/" target="_blank" rel="noopener">ZoomInfo</a>
+<a href="https://bookings.cloud.microsoft/bookings/homepage" target="_blank" rel="noopener">Microsoft Bookings</a>
+<a href="https://slack.com/signin" target="_blank" rel="noopener">Slack</a>
 <div class="menunote">Log every walkthrough in the Building Survey.</div>
 </div>
 </div>
@@ -218,7 +223,7 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 <footer>
 <div class="wrap">
 <span>City Wide Facility Solutions | Las Vegas &amp; Northern Nevada</span>
-<a href="https://www.gocitywide.com">GoCityWide.com</a>
+<a href="https://www.gocitywide.com" target="_blank" rel="noopener">GoCityWide.com</a>
 </div>
 </footer>
 
@@ -228,7 +233,7 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 <div class="gatecard">
 <img src="https://emailer.emfluence.com/clients/citywide/uploadedfiles/signature_logo.png" alt="City Wide Facility Solutions">
 <h2>Sales Hub</h2>
-<p>Enter the team passcode to continue. Ask TJ if you do not have it.</p>
+<p id="gnote">Enter the team passcode once. This browser stays unlocked until it changes. Ask TJ if you do not have it.</p>
 <input type="password" id="gpass" autocomplete="off" placeholder="Team passcode">
 <button id="gbtn">Enter</button>
 <div class="gerr" id="gerr"></div>
@@ -236,6 +241,7 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 </div>
 </div>
 
+<script src="https://citywidelv.github.io/cw-ops-desk/cw-auth.js"></script>
 <script>
 "use strict";
 var EXEC="https://script.google.com/macros/s/AKfycbzfNnrpidCbWB1DeUNgXvRhDFMQgApfpn-3C9GU45wMEHcJpWFl8ZQVo6PUBSRfEVfRdg/exec";
@@ -415,8 +421,8 @@ setTimeout(function(){burst(W*0.3,H*0.7,70,2,GOLD);burst(W*0.7,H*0.7,70,2,GOLD);
 }
 }
 
-/* ---- Team passcode gate (validated server-side, cached per device) ---- */
-var AUTH_KEY="cw_sales_auth";
+/* ---- Team passcode gate: one unlock per device, shared with the Ops Hub, BOM Hub,
+and Team Portal (cw-auth.js). Validated server side, cached under cwOpsHubPass. ---- */
 var appStarted=false;
 function startApp(){
 if(appStarted)return;
@@ -425,56 +431,13 @@ load(true);
 setInterval(load,60000);
 setInterval(function(){todayInfo();},300000);
 }
-function validatePass(pass){
-return fetch(EXEC,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
-body:JSON.stringify({kind:"auth",passcode:pass})})
-.then(function(r){return r.json();})
-.then(function(j){
-if(!j)return false;
-if(j.ok===false||j.error)return false;
-return !!(j.ok===true||j.sections||j.links||j.cards);
-})
-.catch(function(){return null;}); // null = could not reach server
-}
-function initGate(){
-var gate=document.getElementById("gate"),inp=document.getElementById("gpass"),
-btn=document.getElementById("gbtn"),err=document.getElementById("gerr");
-function submit(){
-var v=inp.value.trim();
-if(!v)return;
-btn.disabled=true;err.textContent="Checking...";
-validatePass(v).then(function(ok){
-btn.disabled=false;
-if(ok===true){
-try{localStorage.setItem(AUTH_KEY,v);}catch(e){}
-gate.style.display="none";
-startApp();
-}else if(ok===null){
-err.textContent="Cannot reach the server. Check the connection and try again.";
-}else{
-err.textContent="That passcode is not right. Ask TJ if you need it.";
-inp.value="";inp.focus();
-}
-});
-}
-btn.onclick=submit;
-inp.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
-var saved=null;
-try{saved=localStorage.getItem(AUTH_KEY);}catch(e){}
-if(saved){
-startApp(); // show immediately for the TV; revalidate in the background
-validatePass(saved).then(function(ok){
-if(ok===false){
-try{localStorage.removeItem(AUTH_KEY);}catch(e){}
-location.reload();
-}
-});
-}else{
-gate.style.display="flex";
-inp.focus();
-}
-}
-initGate();
+(function initGate(){
+var gate=document.getElementById("gate"),inp=document.getElementById("gpass");
+CWAuth.hubGate({ hub:"sales", kind:"auth", input:"gpass", button:"gbtn", err:"gerr", note:"gnote",
+showGate:function(){ gate.style.display="flex"; },
+hideGate:function(){ gate.style.display="none"; },
+onUnlock:function(){ startApp(); } });
+})();
 </script>
 </body>
 </html>
