@@ -23,13 +23,13 @@ header{position:sticky;top:0;background:var(--cw-white);border-bottom:1px solid 
 .bar img{height:38px;width:auto;display:block}
 .bar .hubname{font-size:.78rem;color:var(--cw-grey);border-left:3px solid var(--cw-gold);padding-left:10px;text-transform:uppercase;letter-spacing:.08em}
 .bar .navright{display:flex;align-items:center;gap:10px}
-.bar a.home{font-size:.72rem;color:var(--cw-grey);text-decoration:none;font-weight:700;
+.bar a.home{font-size:12px;min-height:40px;display:inline-flex;align-items:center;color:var(--cw-grey);text-decoration:none;font-weight:700;
 border:1px solid var(--cw-border);border-radius:14px;padding:6px 14px;background:var(--cw-light);white-space:nowrap}
 .bar a.home:hover{background:var(--cw-red);color:#fff;border-color:var(--cw-red)}
 
 /* ---- Sales Tools dropdown ---- */
 .menu{position:relative}
-.menubtn{font-family:inherit;font-size:.72rem;font-weight:700;color:var(--cw-black);background:var(--cw-white);
+.menubtn{font-family:inherit;font-size:12px;min-height:40px;font-weight:700;color:var(--cw-black);background:var(--cw-white);
 border:1.5px solid var(--cw-border);border-radius:14px;padding:6px 15px;cursor:pointer;
 display:flex;align-items:center;gap:8px;white-space:nowrap;transition:all .15s}
 .menubtn:hover{border-color:var(--cw-red);color:var(--cw-red)}
@@ -39,13 +39,13 @@ display:flex;align-items:center;gap:8px;white-space:nowrap;transition:all .15s}
 border:1px solid var(--cw-border);border-radius:12px;box-shadow:0 14px 36px rgba(45,42,38,.20);
 padding:8px;min-width:440px;z-index:40;grid-template-columns:1fr 1fr;gap:1px 8px}
 .menupanel.open{display:grid}
-.menupanel a{display:block;font-size:.76rem;font-weight:700;color:var(--cw-black);text-decoration:none;
+.menupanel a{display:block;font-size:13px;font-weight:700;color:var(--cw-black);text-decoration:none;
 padding:9px 12px;border-radius:8px;white-space:nowrap}
 .menupanel a:hover{background:var(--cw-light);color:var(--cw-red)}
 .menupanel a.primary{color:var(--cw-red)}
-.menupanel .grouphead{grid-column:1/-1;font-size:.6rem;text-transform:uppercase;letter-spacing:.09em;
+.menupanel .grouphead{grid-column:1/-1;font-size:12px;text-transform:uppercase;letter-spacing:.09em;
 color:var(--cw-grey);font-weight:700;padding:10px 12px 3px}
-.menupanel .menunote{grid-column:1/-1;font-size:.66rem;color:var(--cw-grey);padding:9px 12px 4px;
+.menupanel .menunote{grid-column:1/-1;font-size:12px;color:var(--cw-grey);padding:9px 12px 4px;
 border-top:1px solid var(--cw-border);margin-top:6px;white-space:normal}
 
 .hero{background:linear-gradient(120deg,var(--cw-black) 0%,#3a3733 100%);color:#fff;border-bottom:5px solid var(--cw-red);padding:26px 0 22px}
@@ -72,7 +72,7 @@ border-top:1px solid var(--cw-border);margin-top:6px;white-space:normal}
 padding:27px 14px 16px;text-align:center;box-shadow:0 2px 8px rgba(45,42,38,.06);position:relative;overflow:hidden}
 .tile .name{font-size:1.05rem;font-weight:700}
 .tile .count{font-size:3.2rem;font-weight:700;line-height:1.05;margin:4px 0 2px}
-.tile .unit{font-size:.61rem;text-transform:uppercase;letter-spacing:.07em;color:var(--cw-grey)}
+.tile .unit{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--cw-grey)}
 .tile .btns{display:flex;gap:8px;margin-top:13px}
 .tile button{flex:1;border:0;border-radius:8px;font-family:inherit;font-weight:700;font-size:.78rem;
 padding:11px 4px;cursor:pointer;transition:transform .08s ease;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
@@ -82,17 +82,17 @@ padding:11px 4px;cursor:pointer;transition:transform .08s ease;white-space:nowra
 .tiles.compact .lbl-sm{display:inline}
 .tile .appt{background:var(--cw-red);color:#fff;flex:11}
 .tile .sale{flex:6}
-.tile .appt:hover{background:#b31f27}
+.tile .appt:hover{background:#B01F27}
 .tile .sale{background:var(--cw-white);color:var(--cw-black);border:2px solid var(--cw-black)}
 .tile .sale:hover{background:var(--cw-black);color:#fff}
 .tile.leader{border-color:var(--cw-gold);box-shadow:inset 0 0 0 2px var(--cw-gold),0 4px 16px rgba(229,180,35,.35)}
 .tile.leader::after{content:"TODAY'S LEADER";position:absolute;top:0;left:0;right:0;
-background:var(--cw-gold);color:var(--cw-black);font-size:.58rem;font-weight:700;
+background:var(--cw-gold);color:var(--cw-black);font-size:12px;font-weight:700;
 letter-spacing:.09em;padding:5px 0;text-align:center}
 
 .board{background:var(--cw-white);border:1px solid var(--cw-border);border-radius:12px;overflow:auto;box-shadow:0 2px 8px rgba(45,42,38,.06)}
 table{border-collapse:collapse;width:100%;min-width:520px}
-th{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:var(--cw-grey);font-weight:700;text-align:center;padding:12px 10px;border-bottom:2px solid var(--cw-border);white-space:nowrap}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--cw-grey);font-weight:700;text-align:center;padding:12px 10px;border-bottom:2px solid var(--cw-border);white-space:nowrap}
 th:first-child,td:first-child{text-align:left;padding-left:20px}
 td{padding:13px 10px;text-align:center;font-size:1rem;border-bottom:1px solid var(--cw-light)}
 tr:last-child td{border-bottom:0}
@@ -102,26 +102,28 @@ td.msales{color:var(--cw-teal);font-weight:700}
 tr.first td{background:#fffaf0}
 tr.first td.rep::after{content:" 👑"}
 .zero{color:#c9c7c4}
-.footnote{font-size:.7rem;color:var(--cw-grey);margin:18px 0 46px}
+.footnote{font-size:12px;color:var(--cw-grey);margin:18px 0 46px}
 footer{background:var(--cw-white);border-top:1px solid var(--cw-border);padding:18px 0}
-footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:.7rem;color:var(--cw-grey)}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--cw-grey)}
 footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:none}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:100}
 #gate{position:fixed;inset:0;background:linear-gradient(120deg,var(--cw-black) 0%,#3a3733 100%);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
-.gatecard{background:var(--cw-white);border-radius:14px;border-top:6px solid var(--cw-red);padding:34px 30px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.gatecard{background:var(--cw-white);border-radius:14px;border-top:5px solid var(--cw-red);padding:34px 30px;max-width:420px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4)}
 .gatecard img{height:38px;width:auto;margin-bottom:16px}
 .gatecard h2{font-size:1.15rem;font-weight:700;margin-bottom:6px}
-.gatecard p{font-size:.75rem;color:var(--cw-grey);margin-bottom:18px}
+.gatecard p{font-size:13px;color:var(--cw-grey);margin-bottom:18px}
 .gatecard input{width:100%;padding:13px 14px;border:2px solid var(--cw-border);border-radius:8px;font-family:inherit;font-size:1rem;text-align:center;margin-bottom:12px}
 .gatecard input:focus{outline:none;border-color:var(--cw-red)}
 .gatecard button{width:100%;background:var(--cw-red);color:#fff;border:0;border-radius:8px;font-family:inherit;font-weight:700;font-size:1rem;padding:13px;cursor:pointer}
-.gatecard button:hover{background:#b31f27}
-.gatecard .gerr{color:var(--cw-red);font-size:.72rem;font-weight:700;margin-top:10px;min-height:1em}
-.gatecard .gateback{display:inline-block;margin-top:14px;font-size:.72rem;font-weight:700;color:var(--cw-grey);text-decoration:none}
+.gatecard button:hover{background:#B01F27}
+.gatecard .gerr{color:var(--cw-red);font-size:12px;font-weight:700;margin-top:10px;min-height:1em}
+.gatecard .gateback{display:inline-block;margin-top:14px;font-size:12px;font-weight:700;color:var(--cw-grey);text-decoration:none}
 .gatecard .gateback:hover{color:var(--cw-red)}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--cw-black);color:#fff;padding:13px 20px;border-radius:10px;font-size:.85rem;display:flex;gap:16px;align-items:center;z-index:110;box-shadow:0 6px 24px rgba(0,0,0,.3)}
 .toast button{background:var(--cw-gold);border:0;border-radius:6px;font-family:inherit;font-weight:700;font-size:.8rem;padding:7px 14px;cursor:pointer;color:var(--cw-black)}
-.offline{background:var(--cw-red);color:#fff;text-align:center;font-size:.75rem;font-weight:700;padding:8px;display:none}
+.loading-note{grid-column:1/-1;padding:26px 18px;text-align:center;color:var(--cw-grey);font-size:13px;font-weight:700}
+.board .loading-note{border-bottom:1px solid var(--cw-border)}
+.offline{background:var(--cw-red);color:#fff;text-align:center;font-size:13px;font-weight:700;padding:8px;display:none}
 @media(max-width:1280px){
 .tile button .lbl-lg{display:none}
 .tile button .lbl-sm{display:inline}
@@ -133,7 +135,7 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 .bar{flex-wrap:wrap;row-gap:10px}
 .bar .hubname{display:none}
 .bar .navright{width:100%;justify-content:flex-end}
-.tile button{font-size:.72rem;padding:11px 2px}
+.tile button{font-size:12px;padding:11px 2px}
 }
 @media(max-width:640px){
 .big-count .num{font-size:2.6rem}
@@ -141,15 +143,16 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 .hero h1{font-size:1.25rem}
 .bar img{height:32px}
 .bar .navright{justify-content:space-between}
-.menubtn,.bar a.home{font-size:.68rem;padding:6px 12px}
+.menubtn,.bar a.home{font-size:12px;padding:0 12px}
 .tiles{grid-template-columns:repeat(auto-fit,minmax(146px,1fr))}
 .tile{padding:26px 10px 14px}
 .tile .name{font-size:.95rem}
 .tile .btns{gap:6px}
-.tile button{font-size:.72rem;padding:11px 2px}
-.menupanel{min-width:0;width:calc(100vw - 44px);grid-template-columns:1fr;max-height:70vh;overflow:auto}
+.tile button{font-size:12px;padding:11px 2px}
+.menupanel{min-width:0;width:calc(100vw - 44px);left:0;right:auto;grid-template-columns:1fr;max-height:70vh;overflow:auto}
 }
 </style>
+<link rel="stylesheet" href="https://citywidelv.github.io/cw-base.css">
 </head>
 <body>
 <header>
@@ -211,11 +214,11 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 <span class="sales-mini"><b id="todaySales">0</b>Sales Closed Today</span>
 </div>
 
-<div class="tiles" id="tiles"></div>
+<div class="tiles" id="tiles"><div class="loading-note" id="tilesLoading">Loading the scoreboard...</div></div>
 
 <div class="section-title">Monthly Appointment Scoreboard<span class="rule"></span></div>
 <div class="section-sub">Every appointment and sale in <span id="monthName"></span>, all days counted. Resets automatically on the 1st of each month.</div>
-<div class="board"><table id="monthboard"></table></div>
+<div class="board"><div class="loading-note" id="boardLoading">Loading this month...</div><table id="monthboard"></table></div>
 
 <p class="footnote">Logged something by mistake? Use Undo right after, or tell TJ and it gets fixed in the tracker. New rep on the team? TJ adds a name to the roster and they appear here automatically.</p>
 </main>
@@ -291,6 +294,7 @@ document.getElementById("todaySales").textContent=stot;
 
 var max=0;roster.forEach(function(r){if(ta[r]>max)max=ta[r];});
 var tiles=document.getElementById("tiles");tiles.innerHTML="";
+var bl=document.getElementById("boardLoading");if(bl)bl.remove();
 tiles.style.setProperty("--cols",Math.max(1,Math.min(roster.length,MAXCOLS)));
 tiles.classList.toggle("compact",roster.length>5);
 roster.forEach(function(r){
