@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Power BI Reports | Sales Hub</title>
+<style>
+:root{
+--cw-red:#D22730; --cw-black:#2D2A26; --cw-grey:#636466; --cw-white:#FFFFFF;
+--cw-teal:#0AA6A9; --cw-gold:#E5B423; --cw-light:#F5F5F5; --cw-border:#E5E5E5;
+--red:var(--cw-red);--red-dark:#B01F27;--black:var(--cw-black);--grey:var(--cw-grey);
+--light:var(--cw-light);--border:var(--cw-border);--gold:var(--cw-gold);
+--shadow:0 1px 3px rgba(45,42,38,.08),0 4px 14px rgba(45,42,38,.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Verdana,'Liberation Sans','DejaVu Sans',Geneva,Tahoma,sans-serif;
+color:var(--cw-black);background:var(--cw-light);line-height:1.6;font-size:14px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;background:var(--cw-white);border-bottom:1px solid var(--cw-border);z-index:20}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:12px}
+.bar .left{display:flex;align-items:center;gap:14px}
+.bar img{height:38px;width:auto;display:block}
+.bar .hubname{font-size:.78rem;color:var(--cw-grey);border-left:3px solid var(--cw-gold);
+padding-left:10px;text-transform:uppercase;letter-spacing:.08em}
+.bar .navright{display:flex;align-items:center;gap:10px}
+.bar a.home{font-size:12px;min-height:40px;display:inline-flex;align-items:center;color:var(--cw-grey);
+text-decoration:none;font-weight:700;border:1px solid var(--cw-border);border-radius:14px;
+padding:6px 14px;background:var(--cw-light);white-space:nowrap}
+.bar a.home:hover{background:var(--cw-red);color:#fff;border-color:var(--cw-red)}
+footer{background:var(--cw-white);border-top:1px solid var(--cw-border);padding:18px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;
+font-size:12px;color:var(--cw-grey)}
+footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:none}
+@media(max-width:640px){.bar .hubname{display:none}.bar img{height:32px}}
+
+.pb-wrap{max-width:1100px;margin:0 auto;padding:0 20px 40px}
+.pb-top{padding:22px 0 4px}
+.pb-titlerow{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.pb-titlerow h1{font-size:24px;line-height:1.2;margin:0;flex:none}
+.pb-pills{display:flex;gap:8px;flex-wrap:wrap;margin-left:auto}
+.pb-pill{font-family:inherit;font-size:13px;font-weight:700;color:var(--black);background:#fff;
+ border:1.5px solid var(--border);border-radius:18px;padding:0 16px;min-height:40px;cursor:pointer;
+ display:inline-flex;align-items:center;white-space:nowrap}
+.pb-pill[aria-selected="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.pb-search{position:relative;display:flex}
+.pb-search input{width:100%;font-family:inherit;font-size:15px;border:1.5px solid var(--border);
+ border-radius:22px;padding:11px 80px 11px 18px;background:#fff;outline:none;color:var(--black)}
+.pb-search input:focus{border-color:var(--red)}
+.pb-x{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:none;background:none;
+ color:var(--grey);font:inherit;font-size:12px;font-weight:700;cursor:pointer;padding:8px 12px;min-height:36px}
+.pb-empty{font-size:14px;color:var(--grey);margin:14px 0 0}
+.pb-role[hidden]{display:none}
+.pb-what{font-size:15px;color:var(--grey);margin:16px 0 0;max-width:74ch}
+.pb-day{font-size:13px;color:var(--grey);background:var(--light);border-radius:8px;
+ padding:10px 14px;margin:12px 0 18px}
+.pb-day b{color:var(--black);margin-right:6px}
+
+.pb-tiles{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:26px}
+.pb-tiles>*{min-width:0}
+.pb-tile{background:#fff;border:1px solid var(--border);border-left:4px solid var(--red);
+ border-radius:11px;padding:18px;min-width:0;box-shadow:var(--shadow,0 1px 3px rgba(45,42,38,.08))}
+.pb-app{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.pb-tile h3{font-size:18px;margin:4px 0 6px;line-height:1.25}
+.pb-face{font-size:14px;color:var(--grey);margin:0 0 14px;max-width:62ch}
+.pb-act{display:flex;gap:8px;flex-wrap:wrap}
+
+.pb-listhead{font-size:13px;font-weight:700;border-bottom:1px solid var(--border);
+ padding-bottom:8px;margin-bottom:2px;display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+.pb-listhead span{font-weight:400;color:var(--grey);font-size:12px}
+.pb-rows{display:block}
+.pb-row{border-bottom:1px solid var(--border);padding:12px 0;display:flex;gap:12px;
+ align-items:center;flex-wrap:wrap}
+.pb-row[hidden],.pb-tile[hidden]{display:none}
+.pb-rowmain{flex:1 1 260px;min-width:0}
+.pb-rowname{font-size:15px;font-weight:700}
+.pb-rownote{font-size:13px;color:var(--grey);margin-left:8px}
+.pb-rowapp{display:block;font-size:12px;color:var(--grey);text-transform:uppercase;
+ letter-spacing:.1em;font-weight:700;margin-top:2px}
+.pb-rowact{display:flex;gap:8px;flex:none;align-items:center}
+.pb-nolink{font-size:12px;color:var(--grey);font-style:italic;padding:0 6px}
+.pb-row .pb-drawer{flex:1 1 100%}
+
+.pb-bare{list-style:none;margin:0 0 4px;padding:0;display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0}
+.pb-bare li{padding:10px 0;border-bottom:1px solid var(--border);font-size:14px}
+.pb-bare li[hidden]{display:none}
+.pb-bare span{display:block;font-size:12px;color:var(--grey);text-transform:uppercase;
+ letter-spacing:.1em;font-weight:700;margin-top:2px}
+.pb-fallback{margin-top:22px;background:var(--light);border-radius:8px;padding:12px 16px;
+ font-size:13px;color:var(--grey);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pb-fallback b{color:var(--black)}
+.pb-fallback .pb-btn{margin-left:auto}
+.pb-btn{font-family:inherit;font-size:13px;font-weight:700;border-radius:6px;
+ border:1px solid transparent;padding:0 16px;min-height:44px;display:inline-flex;
+ align-items:center;justify-content:center;cursor:pointer;text-decoration:none;white-space:nowrap}
+.pb-btn.pb-sm{min-height:36px;font-size:12px;padding:0 12px}
+.pb-primary{background:var(--red);color:#fff}
+.pb-primary:hover{background:var(--red-dark,#B01F27)}
+.pb-ghost{background:#fff;color:var(--black);border-color:var(--border)}
+.pb-ghost:hover{border-color:var(--grey)}
+.pb-off{background:var(--light);color:var(--grey);border-color:var(--border);cursor:not-allowed}
+.pb-more[aria-expanded="true"]{background:var(--black);color:#fff;border-color:var(--black)}
+
+.pb-drawer{margin-top:14px;border-top:1px solid var(--border);padding-top:14px;display:grid;gap:14px}
+.pb-drawer[hidden]{display:none}
+.pb-b{display:block}
+.pb-lab{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+ color:var(--grey);margin-bottom:6px}
+.pb-sub{font-size:13px;color:var(--grey);margin:0 0 8px;max-width:74ch}
+.pb-b .pb-sub:last-child{margin-bottom:0}
+.pb-reads{margin:0;display:grid;gap:10px}
+.pb-reads dt{font-size:13px;font-weight:700}
+.pb-reads dd{margin:2px 0 0;font-size:13px;color:var(--grey);max-width:74ch}
+.pb-ul{margin:0;padding-left:1.1em;font-size:13px;color:var(--grey);display:grid;gap:6px}
+.pb-ul a{color:var(--black);font-weight:700}
+.pb-flag{border-left:3px solid var(--red);background:var(--light);padding:10px 14px;
+ border-radius:0 8px 8px 0;font-size:13px;color:var(--grey)}
+.pb-flag b{color:var(--black);display:block;margin-bottom:2px}
+
+.pb-scroll{overflow-x:auto;border:1px solid var(--border);border-radius:8px;min-width:0;max-width:100%}
+table.pb-g{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
+table.pb-g th,table.pb-g td{text-align:left;padding:9px 13px;border-bottom:1px solid var(--border);
+ vertical-align:top}
+table.pb-g th{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--grey);
+ background:var(--light);font-weight:700}
+table.pb-g tr:last-child td{border-bottom:none}
+table.pb-g td:nth-child(2),table.pb-g td:nth-child(3){white-space:nowrap}
+table.pb-g td:last-child{color:var(--grey)}
+table.pb-gloss td:nth-child(2){white-space:normal}
+table.pb-gloss tr.pb-conflict td:first-child{border-left:3px solid var(--red)}
+.pb-t{font-weight:700;color:var(--black)}
+.pb-exp{font-weight:400;color:var(--grey)}
+
+.pb-folds{margin-top:30px;display:grid;gap:10px}
+.pb-fold{background:#fff;border:1px solid var(--border);border-radius:11px}
+.pb-fold>summary{padding:14px 18px;cursor:pointer;list-style:none;font-size:13px;color:var(--grey);
+ display:flex;align-items:center;gap:8px;min-height:44px;flex-wrap:wrap}
+.pb-fold>summary::-webkit-details-marker{display:none}
+.pb-fold>summary b{color:var(--black);font-size:14px}
+.pb-fold>summary::after{content:"Show";margin-left:auto;color:var(--red);font-weight:700;font-size:12px}
+.pb-fold[open]>summary::after{content:"Hide"}
+.pb-foldbody{padding:0 18px 18px;display:grid;gap:14px}
+.pb-steps{margin:0;padding-left:1.3em;display:grid;gap:10px;font-size:13px;color:var(--grey)}
+.pb-steps b{color:var(--black)}
+.pb-frame{width:100%;height:560px;border:1px solid var(--border);border-radius:8px;
+ margin-top:12px;background:var(--light)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;
+ background:var(--light);padding:1px 4px;border-radius:3px;word-break:break-all;overflow-wrap:anywhere}
+
+@media(max-width:640px){
+ .pb-wrap{padding:0 14px 30px}
+ .pb-titlerow h1{font-size:21px;width:100%}
+ .pb-pills{margin-left:0;width:100%}
+ .pb-pill{flex:1 1 auto;justify-content:center}
+ .pb-tile{padding:15px}
+ .pb-act .pb-btn{flex:1 1 auto}
+ .pb-rowact{width:100%}
+ .pb-rowact .pb-btn{flex:1 1 auto}
+ .pb-foldbody{padding:0 14px 14px}
+ .pb-fold>summary{padding:12px 14px}
+ .pb-frame{height:380px}
+ .pb-scroll{border:none;border-radius:0;overflow:visible}
+ table.pb-g{min-width:0;width:100%;display:block}
+ table.pb-g thead{display:none}
+ table.pb-g tbody,table.pb-g tr,table.pb-g td{display:block;width:100%}
+ table.pb-g tr{border:1px solid var(--border);border-radius:8px;padding:11px;margin-bottom:10px}
+ table.pb-g td{border:none;padding:0 0 7px}
+ table.pb-g td:last-child{padding-bottom:0}
+ table.pb-g td::before{content:attr(data-l);display:block;font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.1em;color:var(--grey)}
+ table.pb-g td:first-child::before{display:none}
+ table.pb-g td:first-child{font-size:15px}
+ table.pb-g td:nth-child(2),table.pb-g td:nth-child(3){white-space:normal}
+}
+
+</style>
+<link rel="stylesheet" href="https://citywidelv.github.io/cw-base.css">
+</head>
+<body id="pbsales">
+<header><div class="wrap bar">
+<div class="left">
+<img src="https://emailer.emfluence.com/clients/citywide/uploadedfiles/signature_logo.png" alt="City Wide Facility Solutions">
+<div class="hubname">Power BI Reports</div>
+</div>
+<div class="navright">
+<a class="home" href="index.html">&larr; Sales Hub</a>
+</div>
+</div></header>
+
+<main class="pb-wrap"><div class="pb-top"><div class="pb-titlerow"><h1 id="pbTitle">Power BI Reports</h1><div class="pb-pills" role="tablist"><button type="button" class="pb-pill" data-go="rep" role="tab">Salesperson</button><button type="button" class="pb-pill" data-go="manager" role="tab">Sales Manager</button></div></div><div class="pb-search"><input type="search" id="pbFind" placeholder="Find a report by name, app, or what it answers" autocomplete="off"><button type="button" class="pb-x" id="pbClear" hidden>Clear</button></div><p class="pb-empty" id="pbEmpty" hidden>Nothing matches that. Clear the search to see everything again.</p></div><section class="pb-role" id="rep"><p class="pb-what">You carry a territory and a number. You want to know where your pipeline is and whether your activity is enough.</p><div class="pb-day"><b>Day to day</b> Daily Prospecting Touches on Sales Dashboard V2. Two minutes. Did yesterday count.</div><div class="pb-tiles"><article class="pb-tile" data-hay="sales dashboard v2 sales this is your whole job on one page. it answers &quot;is my pipeline big enough, moving fast enough, and closing often enough&quot;, and it answers it for you specifically once you set the seller name slicer to yourself."><div class="pb-app">Sales</div><h3>Sales Dashboard V2</h3><p class="pb-face">This is your whole job on one page.</p><div class="pb-act"><a class="pb-btn pb-primary" href="https://app.powerbi.com/groups/me/apps/f004ee77-b1d5-4c62-b540-5c4f9d108c08/reports/e627c5f6-5a4f-4524-9e53-4ed78b4e9f63/10ae0299a663171873b2?experience=power-bi" target="_blank" rel="noopener">Open report</a><button type="button" class="pb-btn pb-ghost pb-more" aria-expanded="false">What is on it</button></div><div class="pb-drawer" hidden><p class="pb-sub">It answers &quot;is my pipeline big enough, moving fast enough, and closing often enough&quot;, and it answers it for you specifically once you set the Seller Name slicer to yourself.</p><div class="pb-b"><div class="pb-lab">Set this first</div><p class="pb-sub">Set Seller Name to yourself. The Franchise slicer already defaults to Las Vegas here.</p></div><div class="pb-b"><div class="pb-lab">Targets</div><p class="pb-sub">Four numbers you are measured on. None are drawn on this report as target lines, unlike the FSM Dashboard. These are the City Wide Las Vegas internal standards, so read the dials against them yourself.</p><div class="pb-scroll"><table class="pb-g"><thead><tr><th>Gauge</th><th>Target</th><th>Good</th><th>What it is</th></tr></thead><tbody><tr><td data-l="Gauge"><b>Average Deal Size</b></td><td data-l="Target"><span class="pb-t">About $3,000</span></td><td data-l="Good">Higher</td><td data-l="What it is">Internal Las Vegas benchmark. Not drawn on the dial.</td></tr><tr><td data-l="Gauge"><b>BS to Close Won Ratio</b></td><td data-l="Target"><span class="pb-t">About 33%</span></td><td data-l="Good">Higher</td><td data-l="What it is">Internal Las Vegas benchmark. Not drawn on the dial.</td></tr><tr><td data-l="Gauge"><b>Daily Prospecting Touches</b></td><td data-l="Target"><span class="pb-t">About 730 a month</span></td><td data-l="Good">Higher</td><td data-l="What it is">Internal activity target per sales executive. Not drawn on the dial.</td></tr><tr><td data-l="Gauge"><b>Building surveys booked</b></td><td data-l="Target"><span class="pb-t">3 a week</span></td><td data-l="Good">Higher</td><td data-l="What it is">Internal target. The leading indicator for everything else on this page.</td></tr><tr><td data-l="Gauge"><b>Average Sales Cycle in Days</b></td><td data-l="Target"><span class="pb-t">None set</span></td><td data-l="Good">Lower</td><td data-l="What it is">No target exists for this one, internal or on the report.</td></tr></tbody></table></div></div><div class="pb-b"><div class="pb-lab">What the numbers mean</div><dl class="pb-reads"><dt>Daily Prospecting Touches</dt><dd>Rolling two weeks, split into field visit, phone call and email. The visual that makes activity undeniable in a one on one.</dd><dt>JS Opportunity Aging</dt><dd>Your open pipeline in dollars, bucketed by age. Anything in an older bucket is a deal you have stopped working, not a deal that is still alive.</dd><dt>New Proposals Delivered Last 30 Days</dt><dd>Table of Account, Salesperson and Value. Your last month of output in one list.</dd><dt>Upcoming Scheduled BS Appts</dt><dd>Table of Account, Salesperson and Date. Your next two weeks. If this table is short, next month is already short.</dd><dt>Monthly New Starts Value</dt><dd>Rolling 24 months with three years overlaid, so you read this month against the same month in prior years, not against last month.</dd><dt>SE YTD JS New Starts</dt><dd>Horizontal bar by rep. With Seller Name set to you it is your bar.</dd><dt>Appointment Ratio Month Trend</dt><dd>Your franchise against the City Wide system benchmark. The only visual here that tells you whether the whole office is off pace or just you.</dd><dt>BS to Proposal Delivery Ratio</dt><dd>How many surveys turned into a delivered proposal. A gap between this and BS to Close Won tells you which step you are losing on.</dd><dt>Prospecting Touches to BS Appointments</dt><dd>How much dialing and door knocking it takes you to book one survey.</dd></dl></div><div class="pb-flag"><b>Buckets as observed</b> JS Opportunity Aging was captured showing a 0 to 30 bucket and a 61 to 90 bucket. Whether a 31 to 60 bucket exists and was simply off screen was not confirmed. Look at the full visual before you quote aging to anyone.</div><div class="pb-b"><div class="pb-lab">Embedded view</div><p class="pb-sub">It will say "Sign in to view this report" unless you have added <code>app.powerbi.com</code> to Chrome's third party cookie exceptions on this machine. Microsoft refuses to render its login inside a frame. Open report has no such problem.</p><button type="button" class="pb-btn pb-ghost pb-sm" data-frame="https://app.powerbi.com/reportEmbed?reportId=e627c5f6-5a4f-4524-9e53-4ed78b4e9f63&amp;appId=f004ee77-b1d5-4c62-b540-5c4f9d108c08&amp;autoAuth=true&amp;ctid=3b214a92-dd33-4a9c-a070-43f6783d144c">Load it anyway</button><div class="pb-slot"></div></div></div></article></div><div class="pb-listhead">Also yours <span>2 reports with something written down about them</span></div><div class="pb-rows"><div class="pb-row" data-hay="js signed not started sales signed business that has not started yet. worth knowing because it is revenue you have earned but are not yet being paid for."><div class="pb-rowmain"><span class="pb-rowname">JS Signed not started</span> <span class="pb-rownote">Signed business that has not started yet.</span><span class="pb-rowapp">Sales</span></div><div class="pb-rowact"><button type="button" class="pb-btn pb-ghost pb-sm pb-more" aria-expanded="false">Details</button><span class="pb-nolink">No link yet</span></div><div class="pb-drawer" hidden><p class="pb-sub">Worth knowing because it is revenue you have earned but are not yet being paid for.</p></div></div><div class="pb-row" data-hay="contests: sales contests se and rookie achievers standings."><div class="pb-rowmain"><span class="pb-rowname">Contests: Sales</span> <span class="pb-rownote">SE and Rookie Achievers standings.</span><span class="pb-rowapp">Contests</span></div><div class="pb-rowact"><span class="pb-nolink">No link yet</span></div></div></div><div class="pb-listhead">Assigned to you, nothing written down yet <span>5 reports. No link captured and no description. Open one, send TJ two sentences, and it moves up.</span></div><ul class="pb-bare"><li data-hay="sales activities sales"><b>Sales Activities</b><span>Sales</span></li><li data-hay="appointments sales"><b>Appointments</b><span>Sales</span></li><li data-hay="all quotes sales"><b>All Quotes</b><span>Sales</span></li><li data-hay="new starts sales"><b>New Starts</b><span>Sales</span></li><li data-hay="prospecting tools sales"><b>Prospecting Tools</b><span>Sales</span></li></ul><div class="pb-fallback"><b>Not finding it?</b> Corporate keeps a plain text index of everything across all eleven apps. <a class="pb-btn pb-ghost pb-sm" href="https://app.powerbi.com/groups/me/apps/39119af1-764b-4a21-824b-42560a3041d2/reports/022a955a-86f2-4c10-af1b-09fc0006547e/ReportSectionf7803a14124c60500cbe?experience=power-bi" target="_blank" rel="noopener">Open the CWFS Home Page</a></div></section><section class="pb-role" id="manager" hidden><p class="pb-what">You run the team. You want to know who is behind, and on which step of the funnel, without building a spreadsheet.</p><div class="pb-day"><b>Day to day</b> Nothing. Do not open Power BI daily for this role. Your reps do that.</div><div class="pb-tiles"><article class="pb-tile" data-hay="sales dashboard v2 (seller name = all) sales the same page your reps use, with one slicer changed. setting seller name to all turns every personal gauge into a team comparison, which is the fastest read on who is behind and where."><div class="pb-app">Sales</div><h3>Sales Dashboard V2 (Seller Name = All)</h3><p class="pb-face">The same page your reps use, with one slicer changed.</p><div class="pb-act"><a class="pb-btn pb-primary" href="https://app.powerbi.com/groups/me/apps/f004ee77-b1d5-4c62-b540-5c4f9d108c08/reports/e627c5f6-5a4f-4524-9e53-4ed78b4e9f63/10ae0299a663171873b2?experience=power-bi" target="_blank" rel="noopener">Open report</a><button type="button" class="pb-btn pb-ghost pb-more" aria-expanded="false">What is on it</button></div><div class="pb-drawer" hidden><p class="pb-sub">Setting Seller Name to All turns every personal gauge into a team comparison, which is the fastest read on who is behind and where.</p><div class="pb-b"><div class="pb-lab">Set this first</div><p class="pb-sub">Set Seller Name to All. Leave Franchise on Las Vegas, which is the default here.</p></div><div class="pb-b"><div class="pb-lab">Targets</div><p class="pb-sub">The same internal standards, read across the team rather than for one person.</p><div class="pb-scroll"><table class="pb-g"><thead><tr><th>Gauge</th><th>Target</th><th>Good</th><th>What it is</th></tr></thead><tbody><tr><td data-l="Gauge"><b>Average Deal Size</b></td><td data-l="Target"><span class="pb-t">About $3,000</span></td><td data-l="Good">Higher</td><td data-l="What it is">Internal Las Vegas benchmark. Not drawn on the dial.</td></tr><tr><td data-l="Gauge"><b>BS to Close Won Ratio</b></td><td data-l="Target"><span class="pb-t">About 33%</span></td><td data-l="Good">Higher</td><td data-l="What it is">Internal Las Vegas benchmark. Not drawn on the dial.</td></tr><tr><td data-l="Gauge"><b>Daily Prospecting Touches</b></td><td data-l="Target"><span class="pb-t">About 730 a month</span></td><td data-l="Good">Higher</td><td data-l="What it is">Internal activity target per sales executive. Not drawn on the dial.</td></tr><tr><td data-l="Gauge"><b>Building surveys booked</b></td><td data-l="Target"><span class="pb-t">3 a week</span></td><td data-l="Good">Higher</td><td data-l="What it is">Internal target. The leading indicator for everything else on this page.</td></tr><tr><td data-l="Gauge"><b>Average Sales Cycle in Days</b></td><td data-l="Target"><span class="pb-t">None set</span></td><td data-l="Good">Lower</td><td data-l="What it is">No target exists for this one, internal or on the report.</td></tr></tbody></table></div></div><div class="pb-b"><div class="pb-lab">What the numbers mean</div><dl class="pb-reads"><dt>SE YTD JS New Starts</dt><dd>With Seller Name on All this becomes your ranking bar. Signed business year to date by rep.</dd><dt>BS to Proposal Delivery Ratio</dt><dd>Your second ranking bar, and the more useful one for coaching. It separates a rep who is not surveying from a rep who surveys and never delivers a proposal.</dd><dt>The three gauges</dt><dd>Average Deal Size, BS to Close Won Ratio, Average Sales Cycle in Days. Read across reps: a small deal size with a high close rate is a different coaching conversation than the reverse.</dd><dt>Daily Prospecting Touches</dt><dd>Rolling two weeks by field visit, phone call and email. The activity evidence for a one on one.</dd><dt>Appointment Ratio Month Trend</dt><dd>Franchise against the City Wide system benchmark. Check this before you conclude a rep is the problem. If the office trend is off, the market is the problem.</dd></dl></div><div class="pb-flag"><b>Read the funnel in order</b> Touches to BS, BS to proposal, proposal to close. Find the first step that is short and coach that one. Coaching the last step when the first one is empty is how a manager wastes a month.</div><div class="pb-b"><div class="pb-lab">Embedded view</div><p class="pb-sub">It will say "Sign in to view this report" unless you have added <code>app.powerbi.com</code> to Chrome's third party cookie exceptions on this machine. Microsoft refuses to render its login inside a frame. Open report has no such problem.</p><button type="button" class="pb-btn pb-ghost pb-sm" data-frame="https://app.powerbi.com/reportEmbed?reportId=e627c5f6-5a4f-4524-9e53-4ed78b4e9f63&amp;appId=f004ee77-b1d5-4c62-b540-5c4f9d108c08&amp;autoAuth=true&amp;ctid=3b214a92-dd33-4a9c-a070-43f6783d144c">Load it anyway</button><div class="pb-slot"></div></div></div></article></div><div class="pb-listhead">Also yours <span>3 reports with something written down about them</span></div><div class="pb-rows"><div class="pb-row" data-hay="benchmarking sales your franchise against the wider city wide system."><div class="pb-rowmain"><span class="pb-rowname">Benchmarking</span> <span class="pb-rownote">Your franchise against the wider City Wide system.</span><span class="pb-rowapp">Sales</span></div><div class="pb-rowact"><span class="pb-nolink">No link yet</span></div></div><div class="pb-row" data-hay="sales data cleanup sales pipeline hygiene. this is the report that quietly breaks every other number on this page. if the crm is not logged accurately, none of the ratios above mean anything."><div class="pb-rowmain"><span class="pb-rowname">Sales Data Cleanup</span> <span class="pb-rownote">Pipeline hygiene.</span><span class="pb-rowapp">Sales</span></div><div class="pb-rowact"><button type="button" class="pb-btn pb-ghost pb-sm pb-more" aria-expanded="false">Details</button><span class="pb-nolink">No link yet</span></div><div class="pb-drawer" hidden><p class="pb-sub">This is the report that quietly breaks every other number on this page. If the CRM is not logged accurately, none of the ratios above mean anything.</p></div></div><div class="pb-row" data-hay="sales activities per se per day owner dashboard average daily activity per sales executive. this is not its own report page. it is a tile on the owners dashboard landing page, so the link below opens that page and you look for the tile."><div class="pb-rowmain"><span class="pb-rowname">Sales Activities per SE per Day</span> <span class="pb-rownote">Average daily activity per sales executive.</span><span class="pb-rowapp">Owner Dashboard</span></div><div class="pb-rowact"><button type="button" class="pb-btn pb-ghost pb-sm pb-more" aria-expanded="false">Details</button><a class="pb-btn pb-ghost pb-sm" href="https://app.powerbi.com/groups/me/apps/efe9d625-f277-466d-8409-bec911d81964/reports/e86a1a11-4b93-4951-ad0c-aed445ccd2a5/ReportSectiona2cef29b2bfbe8cab256?experience=power-bi" target="_blank" rel="noopener">Open</a></div><div class="pb-drawer" hidden><p class="pb-sub">This is not its own report page. It is a tile on the Owners Dashboard landing page, so the link below opens that page and you look for the tile.</p><div class="pb-flag"><b>Set the franchise first</b> The Owners Dashboard defaults its Franchise slicer to All, which mixes in North Carolina, The Triad and every other market. Set it to Las Vegas before you read anything on it.</div><div class="pb-b"><div class="pb-lab">Embedded view</div><p class="pb-sub">It will say "Sign in to view this report" unless you have added <code>app.powerbi.com</code> to Chrome's third party cookie exceptions on this machine. Microsoft refuses to render its login inside a frame. Open report has no such problem.</p><button type="button" class="pb-btn pb-ghost pb-sm" data-frame="https://app.powerbi.com/reportEmbed?reportId=e86a1a11-4b93-4951-ad0c-aed445ccd2a5&amp;appId=efe9d625-f277-466d-8409-bec911d81964&amp;autoAuth=true&amp;ctid=3b214a92-dd33-4a9c-a070-43f6783d144c">Load it anyway</button><div class="pb-slot"></div></div></div></div></div><div class="pb-listhead">Assigned to you, nothing written down yet <span>7 reports. No link captured and no description. Open one, send TJ two sentences, and it moves up.</span></div><ul class="pb-bare"><li data-hay="weekly sales recap sales"><b>Weekly Sales Recap</b><span>Sales</span></li><li data-hay="new starts - ranking sales"><b>New Starts - Ranking</b><span>Sales</span></li><li data-hay="loaded rate sales"><b>Loaded Rate</b><span>Sales</span></li><li data-hay="email marketing report sales"><b>Email Marketing Report</b><span>Sales</span></li><li data-hay="sales results owner dashboard"><b>Sales Results</b><span>Owner Dashboard</span></li><li data-hay="net gain rankings cwfs rankings"><b>Net Gain Rankings</b><span>CWFS Rankings</span></li><li data-hay="growth cwfs rankings"><b>Growth</b><span>CWFS Rankings</span></li></ul><div class="pb-fallback"><b>Not finding it?</b> Corporate keeps a plain text index of everything across all eleven apps. <a class="pb-btn pb-ghost pb-sm" href="https://app.powerbi.com/groups/me/apps/39119af1-764b-4a21-824b-42560a3041d2/reports/022a955a-86f2-4c10-af1b-09fc0006547e/ReportSectionf7803a14124c60500cbe?experience=power-bi" target="_blank" rel="noopener">Open the CWFS Home Page</a></div></section><div class="pb-folds"><details class="pb-fold"><summary><b>First time here?</b> Four things, once. Access, slicers, bookmarks, and who to ask.</summary><div class="pb-foldbody"><ol class="pb-steps"><li><b>Check you can open one.</b> Click Open report on your first tile. If it says access denied or the report does not exist, jump to step 4. Each app has to be shared with you by name.</li><li><b>Set your slicers.</b> Every report opens on somebody else's filters. Each report says which slicer to set under What is on it.</li><li><b>Save a personal bookmark.</b> With your slicers set, use Bookmarks in the report toolbar, add a personal bookmark, mark it default. After that the link lands on your view. <i>Not confirmed on our licenses yet. If the Bookmarks menu is missing or will not save, set your slicers each visit and tell TJ.</i></li><li><b>Access denied?</b> TJ Roberts, tjroberts@gocitywide.com or 806-206-6192. TJ escalates to the app owner at the Support Center. Say which report and paste the link. It is almost always that the app has not been shared with your account yet.</li></ol><p class="pb-sub"><b>A number that makes no sense?</b> Daria Kalishina owns Sales, Contracts, Operations, Data Cleanup and Contests. Tim Collett owns CWFS Dashboard and Owner Dashboard. Thanh Morrison owns Revenue, CWFS Rankings and Peer Performance Group. The app name is printed at the top of every card.</p></div></details><details class="pb-fold" id="pb-glossary"><summary><b>Glossary and targets</b> Every metric on these reports, what it means, and the number it is drawn against.</summary><div class="pb-foldbody"><p class="pb-sub">Targets were read off the gauges in the service. Where an expansion says confirm, nothing in the product spells it out. Do not put those in a review until the Support Center confirms them. Rows with a red edge are the two conflicts nobody has resolved.</p><div class="pb-scroll"><table class="pb-g pb-gloss"><thead><tr><th>Term</th><th>Target</th><th>Notes</th></tr></thead><tbody><tr><td data-l="Term"><b>BS</b> <span class="pb-exp">Building Survey</span></td><td data-l="Target"><span class="pb-t">3 per week per sales executive. City Wide Las Vegas internal target, not drawn on the report.</span></td><td data-l="Notes">The leading indicator for the whole sales funnel. Several visuals on Sales Dashboard V2 are ratios with BS on one side.</td></tr><tr><td data-l="Term"><b>JS / OS</b> <span class="pb-exp">Janitorial Services / Other Services (confirm)</span></td><td data-l="Target">not set</td><td data-l="Notes">The two main revenue codes. JS is the recurring contract cleaning. OS is everything sold on top of it.</td></tr><tr><td data-l="Term"><b>Net Gain</b></td><td data-l="Target">not set</td><td data-l="Notes">New Contract plus Price Change plus New Line, less Lost Line and Lost Account, netted to a total. Read it monthly, not annualized.</td></tr><tr><td data-l="Term"><b>NBD</b> <span class="pb-exp">New Business Development (confirm)</span></td><td data-l="Target">not set</td><td data-l="Notes">Has its own pages under Owner Dashboard and Operations, plus its own AR and revenue views.</td></tr><tr class="pb-conflict"><td data-l="Term"><b>CRR</b> <span class="pb-exp">Customer Retention Rate (confirm)</span></td><td data-l="Target"><span class="pb-t">90% on the FSM Dashboard. 88% on the Operations Dashboard.</span></td><td data-l="Notes">Higher is better. Two reports draw different target lines for what reads as the same measure. The Operations Dashboard version is labeled 12 Month CRR, so the windows may differ. Confirm which number your review is scored against.</td></tr></tbody></table></div></div></details><details class="pb-fold"><summary><b>Missing links and other roles</b> 5 of 21 reports on this page have a captured link.</summary><div class="pb-foldbody"><p class="pb-sub">Nine report GUIDs were captured out of roughly sixty pages across the eleven apps. Nothing is guessed, so a report with no link says so rather than sending you somewhere wrong. To add one: open the report in Power BI, copy the whole address bar, send it to TJ with two sentences on what the page answers.</p><div class="pb-b"><div class="pb-lab">Not your role?</div><ul class="pb-ul"><li><a href="https://citywidelv.github.io/cw-ops-desk/powerbi.html">Facility Solutions Manager and Director of Operations</a></li><li><a href="https://citywidelv.github.io/cw-bom-hub/powerbi.html">Business Operations Manager</a></li></ul></div></div></details></div></main>
+
+<footer><div class="wrap">
+<span>City Wide Facility Solutions | Las Vegas &amp; Northern Nevada |
+No report data on this page. Power BI decides who can open what.</span>
+<a href="https://www.gocitywide.com" target="_blank" rel="noopener">GoCityWide.com</a>
+</div></footer>
+
+<script src="https://citywidelv.github.io/cw-ops-desk/cw-auth.js"></script>
+<script>
+if(!CWAuth.require({hub:"sales"})){ document.body.style.display="none"; }
+
+(function(){
+  var roles=[].slice.call(document.querySelectorAll('.pb-role'));
+  var pills=[].slice.call(document.querySelectorAll('.pb-pill'));
+  var find=document.getElementById('pbFind');
+  var clear=document.getElementById('pbClear');
+  var empty=document.getElementById('pbEmpty');
+  var title=document.getElementById('pbTitle');
+  var KEY='cwPb_'+document.body.id;
+
+  function show(k){
+    if(roles.length<2) return;
+    var hit=roles.filter(function(r){ return r.id===k; })[0]||roles[0];
+    roles.forEach(function(r){ r.hidden=(r!==hit); });
+    pills.forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-go')===hit.id?'true':'false'); });
+    try{ localStorage.setItem(KEY,hit.id); }catch(e){}
+    if(find&&find.value) filter();
+  }
+  if(roles.length>1){
+    var want=(location.hash||'').replace('#','');
+    if(!want){ try{ want=localStorage.getItem(KEY)||''; }catch(e){} }
+    show(want||roles[0].id);
+    pills.forEach(function(b){ b.addEventListener('click',function(){
+      show(b.getAttribute('data-go'));
+      try{ history.replaceState(null,'','#'+b.getAttribute('data-go')); }catch(e){}
+    });});
+    window.addEventListener('hashchange',function(){ show((location.hash||'').replace('#','')); });
+  }
+
+  function filter(){
+    var q=(find.value||'').trim().toLowerCase();
+    clear.hidden=!q;
+    var live=roles.filter(function(r){ return !r.hidden; })[0]||document;
+    var items=[].slice.call(live.querySelectorAll('[data-hay]'));
+    var n=0;
+    items.forEach(function(el){
+      var on=!q||el.getAttribute('data-hay').indexOf(q)>-1;
+      el.hidden=!on; if(on) n++;
+    });
+    if(empty) empty.hidden=(n>0||!q);
+    var head=live.querySelector?live.querySelector('.pb-listhead'):null;
+    if(head) head.hidden=!!q;
+  }
+  if(find){
+    find.addEventListener('input',filter);
+    clear.addEventListener('click',function(){ find.value=''; filter(); find.focus(); });
+  }
+
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    var more=t.closest?t.closest('.pb-more'):null;
+    if(more){
+      var host=more.closest('.pb-tile')||more.closest('.pb-row');
+      var d=host&&host.querySelector('.pb-drawer');
+      if(d){ var open=d.hidden; d.hidden=!open;
+        more.setAttribute('aria-expanded',open?'true':'false');
+        more.textContent=open?'Hide details':(host.classList.contains('pb-tile')?'What is on it':'Details'); }
+      return;
+    }
+    var fb=t.closest?t.closest('[data-frame]'):null;
+    if(fb){
+      var slot=fb.parentNode.querySelector('.pb-slot');
+      if(!slot||slot.querySelector('iframe')) return;
+      var f=document.createElement('iframe');
+      f.className='pb-frame'; f.src=fb.getAttribute('data-frame');
+      f.title='Embedded Power BI report'; f.setAttribute('allowfullscreen','');
+      slot.appendChild(f); fb.disabled=true; fb.textContent='Loaded';
+    }
+  });
+})();
+
+</script>
+</body>
+</html>
