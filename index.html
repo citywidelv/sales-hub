@@ -53,6 +53,15 @@ border-top:1px solid var(--cw-border);margin-top:6px;white-space:normal}
 .hero h1{font-size:1.7rem;font-weight:700;letter-spacing:.02em}
 .hero .datebox{text-align:right}
 .hero .today-date{font-size:.9rem;color:#d8d5d1}
+.survey-cta{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.survey-cta a{display:flex;align-items:center;justify-content:center;gap:10px;min-height:64px;padding:14px 18px;border-radius:12px;font-size:1.05rem;font-weight:700;text-decoration:none;box-shadow:0 2px 8px rgba(45,42,38,.06);transition:transform .1s,background .15s}
+.survey-cta a:active{transform:scale(.98)}
+.survey-cta a.start{background:var(--cw-red);color:#fff;border:2px solid var(--cw-red)}
+.survey-cta a.start:hover{background:#B01F27;border-color:#B01F27}
+.survey-cta a.review{background:var(--cw-white);color:var(--cw-black);border:2px solid var(--cw-teal)}
+.survey-cta a.review:hover{background:var(--cw-teal);color:#fff}
+.survey-cta small{display:block;font-size:.72rem;font-weight:400;opacity:.85}
+@media(max-width:640px){.survey-cta{grid-template-columns:1fr;gap:10px}.survey-cta a{min-height:58px}}
 .badge{display:inline-block;margin-top:6px;font-size:.85rem;font-weight:700;padding:7px 16px;border-radius:999px}
 .badge.live{background:var(--cw-red);color:#fff;animation:pulse 1.6s infinite}
 .badge.next{background:#4a4640;color:#f0ede9}
@@ -208,6 +217,11 @@ footer a{color:var(--cw-grey);font-weight:700;font-style:italic;text-decoration:
 </section>
 
 <main class="wrap">
+<div class="survey-cta">
+<a class="start" href="https://citywidelv.github.io/BuildingSurvey/?new=1">&#43; Start a new building survey</a>
+<a class="review" href="https://citywidelv.github.io/BuildingSurvey/surveys.html">Review past surveys<small>by salesperson · open, edit, export to Excel</small></a>
+</div>
+
 <div class="section-title">Call Block Scoreboard<span class="rule"></span></div>
 <div class="section-sub">Set an appointment? Tap your name and log it the moment you hang up.</div>
 
